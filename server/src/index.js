@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * Craftera Server — Einstiegspunkt (AP-1.1).
+ * Craftera Server — Einstiegspunkt (AP-1.1, AP-1.2).
  *
- * Startet einen minimalen HTTP-Server, der einen Port bindet und ein
- * Start-Log ausgibt. Statisches File-Serving aus `client/` folgt in AP-1.2.
+ * Liefert statische Dateien aus `client/` aus und stellt die lokale
+ * Registry-API bereit (ab Phase 2).
  *
  * Konfiguration über Umgebungsvariablen:
  *   PORT  — Port, auf dem der Server lauscht (Standard: 3000)
@@ -12,9 +12,65 @@
  */
 
 const http = require('node:http');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
+
+// Wurzelverzeichnis der statischen Client-Dateien.
+const CLIENT_DIR = path.resolve(__dirname, '..', '..', 'client');
+
+// MIME-Types für die ausgelieferten Dateitypen.
+const MIME_TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.woff': 'font/woff',
+  '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
+};
+
+/**
+ * Liefert eine statische Datei aus `client/` aus.
+ * Schützt vor Path-Traversal: aufgelöster Pfad muss innerhalb von CLIENT_DIR liegen.
+ */
+function serveStatic(req, res) {
+  let urlPath = decodeURIComponent(req.url.split('?')[0]);
+
+  // Verzeichnis-Anfragen auf index.html mappen.
+  if (urlPath === '/' || urlPath.endsWith('/')) {
+    urlPath = path.join(urlPath, 'index.html');
+  }
+
+  const filePath = path.resolve(CLIENT_DIR, '.' + urlPath);
+
+  // Path-Traversal-Schutz: Datei muss innerhalb von CLIENT_DIR liegen.
+  if (filePath !== CLIENT_DIR && !filePath.startsWith(CLIENT_DIR + path.sep)) {
+    res.writeHead(403, { 'Content-Type': 'text/plain' });
+    res.end('Forbidden');
+    return;
+  }
+
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('Not Found');
+      return;
+    }
+    const ext = path.extname(filePath).toLowerCase();
+    const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    res.writeHead(200, { 'Content-Type': contentType });
+    res.end(data);
+  });
+}
 
 const server = http.createServer((req, res) => {
   // Minimaler Health-Endpoint, damit der Server real verifizierbar ist.
@@ -24,13 +80,20 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  res.writeHead(404, { 'Content-Type': 'text/plain' });
-  res.end('Not Found');
+  // Statische Dateien aus `client/` ausliefern.
+  if (req.method === 'GET' || req.method === 'HEAD') {
+    serveStatic(req, res);
+    return;
+  }
+
+  res.writeHead(405, { 'Content-Type': 'text/plain' });
+  res.end('Method Not Allowed');
 });
 
 server.listen(PORT, HOST, () => {
   console.log(`[craftera] Server läuft auf http://${HOST}:${PORT}`);
   console.log(`[craftera] Health-Check: http://${HOST}:${PORT}/health`);
+  console.log(`[craftera] Statische Dateien aus: ${CLIENT_DIR}`);
 });
 
 // Sauberes Herunterfahren bei SIGINT/SIGTERM.
