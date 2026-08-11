@@ -119,3 +119,61 @@ body {
 .discover-search input::placeholder {
   color: #6b7280;
 }
+
+/* Create-View */
+.create-hub {
+  max-width: 420px;
+}
+
+.create-hub h3 {
+  margin: 0 0 1rem;
+  color: #fff;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.create-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: #aeb4bf;
+}
+
+.create-form input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #2a2e38;
+  border-radius: 6px;
+  background: #1a1d24;
+  color: #e6e8ec;
+  font-size: 0.95rem;
+}
+
+.create-form input::placeholder {
+  color: #6b7280;
+}
+
+.btn-primary {
+  align-self: flex-start;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  background: #2f6fed;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #3d7bf5;
+}
+
+.form-status {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #aeb4bf;
+}

@@ -45,7 +45,25 @@
     </section>
     <section class="view" data-view="create">
       <h2>Create</h2>
-      <p>Creator Hub + New Experience (AP-1.8).</p>
+      <div class="create-hub">
+        <h3>New Experience</h3>
+        <form id="create-form" class="create-form">
+          <label>
+            Name
+            <input type="text" id="create-name" name="name" required placeholder="z.B. Space Runner">
+          </label>
+          <label>
+            Slug
+            <input type="text" id="create-slug" name="slug" placeholder="z.B. space-runner">
+          </label>
+          <label>
+            Tags (kommagetrennt)
+            <input type="text" id="create-tags" name="tags" placeholder="action, arcade">
+          </label>
+          <button type="submit" class="btn-primary">Experience erstellen</button>
+        </form>
+        <p id="create-status" class="form-status" role="status"></p>
+      </div>
     </section>
     <section class="view" data-view="settings">
       <h2>Settings</h2>
@@ -57,11 +75,13 @@
   <script src="/home/home.js"></script>
   <script src="/discover/discover.js"></script>
   <script src="/library/library.js"></script>
+  <script src="/creator_hub/create.js"></script>
   <script>
     // Views beim Laden rendern (nachdem die jeweiligen Skripte geladen sind).
     window.craftera.renderHome();
     window.craftera.renderDiscover();
     window.craftera.renderLibrary();
+    window.craftera.renderCreate();
   </script>
 </body>
 </html>
