@@ -49,7 +49,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-1.1 | Node.js-Projekt initialisieren (`package.json`, `npm start`) | `npm start` startet Server | Server läuft, Log erscheint |
+| AP-1.1 | Node.js-Projekt initialisieren (`package.json`, `npm start`) | `npm start` startet Server | Server läuft, Log erscheint | ✅ |
 | AP-1.2 | HTTP-Server bauen, der statische Dateien aus `client/` ausliefert | `GET /` liefert `index.html` | Browser zeigt Client |
 | AP-1.3 | HTML-Shell mit Topbar-Navigation (Home, Discover, Library, Create, Settings) | 5 Nav-Buttons vorhanden | Klick wechselt View |
 | AP-1.4 | SPA-Router implementieren (View-Wechsel ohne Reload) | `navigate(view)` rendert View | URL/View wechselt real |

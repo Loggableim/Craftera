@@ -1,0 +1,14 @@
+{
+  "name": "craftera",
+  "version": "0.1.0",
+  "description": "AI-native UGC Game Platform — Client Shell + lokale Registry-API",
+  "type": "commonjs",
+  "private": true,
+  "scripts": {
+    "start": "node server/src/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
