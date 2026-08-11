@@ -99,3 +99,23 @@ body {
   font-style: italic;
   margin: 0;
 }
+
+/* Discover-View */
+.discover-search {
+  margin-bottom: 1rem;
+}
+
+.discover-search input {
+  width: 100%;
+  max-width: 360px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #2a2e38;
+  border-radius: 6px;
+  background: #1a1d24;
+  color: #e6e8ec;
+  font-size: 0.95rem;
+}
+
+.discover-search input::placeholder {
+  color: #6b7280;
+}

@@ -34,7 +34,10 @@
     </section>
     <section class="view" data-view="discover">
       <h2>Discover</h2>
-      <p>Liste + Suche (AP-1.6).</p>
+      <div class="discover-search">
+        <input type="search" id="discover-search" placeholder="Suche nach Name oder Tag…" aria-label="Experiences durchsuchen">
+      </div>
+      <div id="discover-list"></div>
     </section>
     <section class="view" data-view="library">
       <h2>Library</h2>
@@ -52,9 +55,11 @@
 
   <script src="/shell/app.js"></script>
   <script src="/home/home.js"></script>
+  <script src="/discover/discover.js"></script>
   <script>
-    // Home-View beim Laden rendern (nachdem home.js geladen ist).
+    // Views beim Laden rendern (nachdem die jeweiligen Skripte geladen sind).
     window.craftera.renderHome();
+    window.craftera.renderDiscover();
   </script>
 </body>
 </html>
