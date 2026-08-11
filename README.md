@@ -43,6 +43,8 @@ docs/      → Dokumentation
 - [`docs/SECURITY_MODEL.md`](docs/SECURITY_MODEL.md) — Sicherheitsmodell
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — Roadmap & Phasen
 - [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) — alle Phasen in konkrete Arbeitspunkte aufgelöst
+- [`docs/CONSISTENT_GOAL.md`](docs/CONSISTENT_GOAL.md) — Zielbild für wiederkehrende autonome Runs (ein AP pro Run)
+- [`docs/SKIPPED_POINTS.md`](docs/SKIPPED_POINTS.md) — nicht bearbeitbare Arbeitspunkte
 - [`docs/DECISIONS.md`](docs/DECISIONS.md) — Architektur-Entscheidungen
 
 ## Umgebung
