@@ -41,7 +41,7 @@
     </section>
     <section class="view" data-view="library">
       <h2>Library</h2>
-      <p>Installierte Experiences (AP-1.7).</p>
+      <div id="library-list"></div>
     </section>
     <section class="view" data-view="create">
       <h2>Create</h2>
@@ -56,10 +56,12 @@
   <script src="/shell/app.js"></script>
   <script src="/home/home.js"></script>
   <script src="/discover/discover.js"></script>
+  <script src="/library/library.js"></script>
   <script>
     // Views beim Laden rendern (nachdem die jeweiligen Skripte geladen sind).
     window.craftera.renderHome();
     window.craftera.renderDiscover();
+    window.craftera.renderLibrary();
   </script>
 </body>
 </html>
