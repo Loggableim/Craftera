@@ -42,6 +42,7 @@ docs/      → Dokumentation
 - [`docs/PLATFORM_ARCHITECTURE.md`](docs/PLATFORM_ARCHITECTURE.md) — Plattform-Architektur
 - [`docs/SECURITY_MODEL.md`](docs/SECURITY_MODEL.md) — Sicherheitsmodell
 - [`docs/ROADMAP.md`](docs/ROADMAP.md) — Roadmap & Phasen
+- [`docs/DEVELOPMENT_PLAN.md`](docs/DEVELOPMENT_PLAN.md) — alle Phasen in konkrete Arbeitspunkte aufgelöst
 - [`docs/DECISIONS.md`](docs/DECISIONS.md) — Architektur-Entscheidungen
 
 ## Umgebung
