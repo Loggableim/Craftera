@@ -53,7 +53,7 @@
 | AP-1.2 | HTTP-Server bauen, der statische Dateien aus `client/` ausliefert | `GET /` liefert `index.html` | Browser zeigt Client | ✅ |
 | AP-1.3 | HTML-Shell mit Topbar-Navigation (Home, Discover, Library, Create, Settings) | 5 Nav-Buttons vorhanden | Klick wechselt View | ✅ |
 | AP-1.4 | SPA-Router implementieren (View-Wechsel ohne Reload) | `navigate(view)` rendert View | URL/View wechselt real | ✅ |
-| AP-1.5 | Home-View: Featured + Recently Played (echte Daten, leerer Zustand ok) | Home rendert | View sichtbar |
+| AP-1.5 | Home-View: Featured + Recently Played (echte Daten, leerer Zustand ok) | Home rendert | View sichtbar | ✅ |
 | AP-1.6 | Discover-View: Liste + Suche | Liste + Suchfeld | Suche filtert |
 | AP-1.7 | Library-View: installierte Experiences | View rendert | View sichtbar |
 | AP-1.8 | Create-View: Creator Hub + "New Experience"-Formular | Formular vorhanden | Formular rendert |

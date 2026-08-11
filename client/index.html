@@ -23,7 +23,14 @@
   <main class="view-container" id="view-container">
     <section class="view" data-view="home">
       <h2>Home</h2>
-      <p>Featured + Recently Played (AP-1.5).</p>
+      <div class="home-section">
+        <h3>Featured</h3>
+        <div id="home-featured"></div>
+      </div>
+      <div class="home-section">
+        <h3>Recently Played</h3>
+        <div id="home-recently-played"></div>
+      </div>
     </section>
     <section class="view" data-view="discover">
       <h2>Discover</h2>
@@ -44,5 +51,10 @@
   </main>
 
   <script src="/shell/app.js"></script>
+  <script src="/home/home.js"></script>
+  <script>
+    // Home-View beim Laden rendern (nachdem home.js geladen ist).
+    window.craftera.renderHome();
+  </script>
 </body>
 </html>
