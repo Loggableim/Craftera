@@ -12,7 +12,7 @@
  */
 
 (function () {
-  const navButtons = Array.from(document.querySelectorAll('#topbar-nav .nav-btn'));
+  const navButtons = Array.from(document.querySelectorAll('#topbar-nav .btn'));
   const views = Array.from(document.querySelectorAll('#view-container .view'));
 
   // Gültige View-Ids (aus den vorhandenen View-Sektionen abgeleitet).

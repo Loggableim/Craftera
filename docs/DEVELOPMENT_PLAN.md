@@ -58,7 +58,7 @@
 | AP-1.7 | Library-View: installierte Experiences | View rendert | View sichtbar | ✅ |
 | AP-1.8 | Create-View: Creator Hub + "New Experience"-Formular | Formular vorhanden | Formular rendert | ✅ |
 | AP-1.9 | Settings-View: BYOK-Provider-Konfiguration (UI-Gerüst) | Provider-Liste sichtbar | View rendert | ✅ |
-| AP-1.10 | CSS-Grundsystem (Layout, Cards, Buttons, Status) | Einheitliches Styling | Visuell konsistent |
+| AP-1.10 | CSS-Grundsystem (Layout, Cards, Buttons, Status) | Einheitliches Styling | Visuell konsistent | ✅ |
 | AP-1.11 | API-Client-Helper (`fetch`-Wrapper) | `api.get/post/put` funktionieren | Aufruf gegen Test-Endpoint |
 
 **DoD Phase 1:** Client startet stabil, Navigation funktioniert real, alle 5 Views erreichbar.
