@@ -547,6 +547,46 @@
   }
 
   /**
+   * Component-Add im Inspector (AP-6.14).
+   * Fügt einer Entity eine Component hinzu.
+   * @param {object} entity - Entity-Objekt.
+   * @param {string} type - Component-Typ (z.B. "Sprite").
+   * @param {object} [props] - Optionale Props.
+   * @returns {object} Die erzeugte Component.
+   */
+  function addComponentToEntity(entity, type, props = {}) {
+    if (!entity || !Array.isArray(entity.components)) {
+      throw new Error('addComponentToEntity: Entity benötigt ein components-Array');
+    }
+    const typeStr = String(type || '').trim();
+    if (!typeStr) throw new Error('addComponentToEntity: "type" ist erforderlich');
+    const component = {
+      componentId: 'comp_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      type: typeStr,
+      props: { ...(props || {}) },
+    };
+    entity.components.push(component);
+    return component;
+  }
+
+  /**
+   * Component-Remove im Inspector (AP-6.14).
+   * Entfernt eine Component von einer Entity.
+   * @param {object} entity - Entity-Objekt.
+   * @param {string} componentId - ID der zu entfernenden Component.
+   * @returns {boolean} true, wenn entfernt; false, wenn nicht gefunden.
+   */
+  function removeComponentFromEntity(entity, componentId) {
+    if (!entity || !Array.isArray(entity.components)) {
+      throw new Error('removeComponentFromEntity: Entity benötigt ein components-Array');
+    }
+    const idx = entity.components.findIndex((c) => c.componentId === componentId);
+    if (idx === -1) return false;
+    entity.components.splice(idx, 1);
+    return true;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -781,6 +821,6 @@
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
     setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
     reparentEntity, getChildren, renameEntity, setEntityLocked, setEntityVisible,
-    setTransformValue, setComponentProp,
+    setTransformValue, setComponentProp, addComponentToEntity, removeComponentFromEntity,
   };
 })();
