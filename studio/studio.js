@@ -468,6 +468,45 @@
   }
 
   /**
+   * Hierarchy-Interaktion: Rename (AP-6.12).
+   * Benennt eine Entity um.
+   * @param {object} entity - Entity-Objekt.
+   * @param {string} name - Neuer Name.
+   * @returns {object} Die aktualisierte Entity.
+   */
+  function renameEntity(entity, name) {
+    if (!entity) throw new Error('renameEntity: Entity ist erforderlich');
+    entity.name = String(name || '');
+    return entity;
+  }
+
+  /**
+   * Hierarchy-Interaktion: Lock (AP-6.12).
+   * Sperrt/entsperrt eine Entity (verhindert Bearbeitung).
+   * @param {object} entity - Entity-Objekt.
+   * @param {boolean} locked - true = gesperrt.
+   * @returns {object} Die aktualisierte Entity.
+   */
+  function setEntityLocked(entity, locked) {
+    if (!entity) throw new Error('setEntityLocked: Entity ist erforderlich');
+    entity.locked = Boolean(locked);
+    return entity;
+  }
+
+  /**
+   * Hierarchy-Interaktion: Visibility (AP-6.12).
+   * Blendet eine Entity ein/aus.
+   * @param {object} entity - Entity-Objekt.
+   * @param {boolean} visible - true = sichtbar.
+   * @returns {object} Die aktualisierte Entity.
+   */
+  function setEntityVisible(entity, visible) {
+    if (!entity) throw new Error('setEntityVisible: Entity ist erforderlich');
+    entity.visible = Boolean(visible);
+    return entity;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -701,6 +740,6 @@
     initUndoRedo, setHistory, updateUndoRedoButtons,
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
     setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
-    reparentEntity, getChildren,
+    reparentEntity, getChildren, renameEntity, setEntityLocked, setEntityVisible,
   };
 })();
