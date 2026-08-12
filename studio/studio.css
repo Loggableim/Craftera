@@ -206,6 +206,41 @@ body {
 }
 
 /* AI-Panel */
+.ai-messages {
+  flex: 1;
+  overflow: auto;
+  margin-bottom: 0.5rem;
+}
+
+.ai-message {
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
+  color: #e6e8ec;
+}
+
+.ai-hint {
+  padding: 0.3rem 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: #6b7280;
+}
+
+.ai-input-row {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.ai-input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #2a2e38;
+  border-radius: 6px;
+  background: #1a1d24;
+  color: #e6e8ec;
+  font-size: 0.85rem;
+}
+
+/* AI-Panel */
 .ai-chat {
   flex: 1;
   overflow: auto;

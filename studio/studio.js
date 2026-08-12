@@ -299,9 +299,53 @@
     });
   }
 
+  /**
+   * AI-Panel (AP-3.9).
+   * Chat-Gerüst: Nachrichten-Liste + Eingabefeld + Senden-Button.
+   * Noch ohne Funktion — die AI-Anbindung folgt in Phase 8.
+   */
+  function renderAI() {
+    const body = document.getElementById('ai-body');
+    if (!body) return;
+
+    body.innerHTML = '';
+
+    // Nachrichten-Liste.
+    const messages = document.createElement('div');
+    messages.className = 'ai-messages';
+    messages.id = 'ai-messages';
+    body.appendChild(messages);
+
+    // Eingabezeile.
+    const inputRow = document.createElement('div');
+    inputRow.className = 'ai-input-row';
+    inputRow.innerHTML = `
+      <input type="text" id="ai-input" class="ai-input" placeholder="Frage die AI…">
+      <button type="button" id="ai-send" class="btn">Senden</button>
+    `;
+    body.appendChild(inputRow);
+
+    const send = inputRow.querySelector('#ai-send');
+    const input = inputRow.querySelector('#ai-input');
+    send.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) return;
+      const msg = document.createElement('div');
+      msg.className = 'ai-message';
+      msg.textContent = text;
+      messages.appendChild(msg);
+      input.value = '';
+      // Noch ohne Funktion — Hinweis anzeigen.
+      const hint = document.createElement('div');
+      hint.className = 'ai-hint';
+      hint.textContent = 'AI-Funktion folgt in Phase 8.';
+      messages.appendChild(hint);
+    });
+  }
+
   window.craftera = window.craftera || {};
   window.craftera.studio = {
     loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets,
-    log, renderConsole, initPlayToolbar, setPlayState, initAiPanel,
+    log, renderConsole, initPlayToolbar, setPlayState, renderAI,
   };
 })();
