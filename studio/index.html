@@ -58,7 +58,13 @@
     <div class="panel panel-bottom" id="ai-panel">
       <h2 class="panel-title">AI</h2>
       <div class="panel-body" id="ai-body">
-        <p class="empty-state">AI-Panel (AP-3.9).</p>
+        <div id="ai-chat" class="ai-chat">
+          <p class="empty-state">AI-Assistent (AP-3.9).</p>
+        </div>
+        <div class="ai-input-row">
+          <input type="text" id="ai-input" placeholder="Anweisung an die AI…" aria-label="AI-Anweisung">
+          <button class="btn" id="ai-send" type="button">Senden</button>
+        </div>
       </div>
     </div>
   </footer>
@@ -73,6 +79,7 @@
     window.craftera.studio.renderAssets();
     window.craftera.studio.renderConsole();
     window.craftera.studio.initPlayToolbar();
+    window.craftera.studio.initAiPanel();
     window.craftera.studio.log('Studio geladen.', 'info');
   </script>
 </body>

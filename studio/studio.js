@@ -267,9 +267,41 @@
     updatePlayButtons();
   }
 
+  /**
+   * AI-Panel (AP-3.9).
+   * Chat-Gerüst: Eingabefeld + Senden-Button. Die echte AI-Funktion
+   * (Provider, Command-Ausführung) folgt in Phase 8. Hier wird nur das
+   * UI-Gerüst gerendert und eine Hinweis-Meldung angezeigt.
+   */
+  function initAiPanel() {
+    const chat = document.getElementById('ai-chat');
+    const input = document.getElementById('ai-input');
+    const send = document.getElementById('ai-send');
+    if (!chat || !input || !send) return;
+
+    function appendMessage(text, cls) {
+      const msg = document.createElement('div');
+      msg.className = `ai-message ${cls}`;
+      msg.textContent = text;
+      chat.appendChild(msg);
+    }
+
+    send.addEventListener('click', () => {
+      const text = input.value.trim();
+      if (!text) return;
+      appendMessage(text, 'ai-user');
+      appendMessage('AI-Funktion folgt in Phase 8.', 'ai-assistant');
+      input.value = '';
+    });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') send.click();
+    });
+  }
+
   window.craftera = window.craftera || {};
   window.craftera.studio = {
     loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets,
-    log, renderConsole, initPlayToolbar, setPlayState,
+    log, renderConsole, initPlayToolbar, setPlayState, initAiPanel,
   };
 })();
