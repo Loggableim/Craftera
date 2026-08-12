@@ -20,6 +20,12 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 
+const { ExperienceRepository } = require('../experiences/experienceRepository.js');
+const { VersionRepository } = require('../experiences/versionRepository.js');
+const { createVersion } = require('../../engine/version.js');
+const { loadProject } = require('../../engine/serialization.js');
+const { buildPackage } = require('../package/packageBuilder.js');
+
 class LocalExperienceRegistry {
   /**
    * @param {string} dataDir - Wurzelverzeichnis für persistierte Daten.
@@ -27,6 +33,8 @@ class LocalExperienceRegistry {
   constructor(dataDir) {
     this.dataDir = dataDir;
     this.filePath = path.join(dataDir, 'registry.json');
+    this.experienceRepo = new ExperienceRepository(dataDir);
+    this.versionRepo = new VersionRepository(dataDir);
   }
 
   /** Lädt die Registry aus der Datei. */
@@ -50,7 +58,51 @@ class LocalExperienceRegistry {
 
   /** Baut Package, registriert Version, markiert published. (AP-10.2) */
   async publish(experienceId) {
-    throw new Error('LocalExperienceRegistry.publish ist nicht implementiert (AP-10.2)');
+    const experience = await this.experienceRepo.get(experienceId);
+    if (!experience) {
+      throw new Error(`publish: Experience "${experienceId}" nicht gefunden`);
+    }
+
+    // Projekt laden.
+    const project = await loadProject(path.join(this.dataDir, 'projects', experienceId));
+    if (!project) {
+      throw new Error(`publish: Kein Projekt für Experience "${experienceId}"`);
+    }
+
+    // Package bauen.
+    const packageDir = path.join(this.dataDir, 'packages', experienceId);
+    await buildPackage(project, packageDir);
+
+    // Version registrieren.
+    const existingVersions = await this.versionRepo.list(experienceId);
+    const version = createVersion({
+      experienceId,
+      versionNumber: existingVersions.length + 1,
+    });
+    version.status = 'PUBLISHED';
+    await this.versionRepo.save(version);
+
+    // Experience als published markieren.
+    experience.status = 'published';
+    await this.experienceRepo.save(experience);
+
+    // Registry-Eintrag aktualisieren.
+    const registry = await this._load();
+    const entry = registry.experiences.find((e) => e.experienceId === experienceId);
+    if (entry) {
+      entry.status = 'published';
+      entry.versionId = version.versionId;
+    } else {
+      registry.experiences.push({
+        experienceId,
+        name: experience.name,
+        status: 'published',
+        versionId: version.versionId,
+      });
+    }
+    await this._save(registry);
+
+    return { experienceId, status: 'published', versionId: version.versionId };
   }
 
   /** Liefert alle Experiences. (AP-10.3) */
