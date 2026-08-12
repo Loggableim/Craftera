@@ -178,7 +178,7 @@
 | AP-6.14 | Component-Add/Remove im Inspector | Components hinzufügbar | Component erscheint | ✅ |
 | AP-6.15 | Asset-Import (PNG als Sprite) | PNG importierbar, platzierbar | Sprite im Viewport | ✅ |
 | AP-6.16 | Event-System (WHEN→THEN, Master Prompt §37) | Events konfigurierbar | Event auslösbar | ✅ |
-| AP-6.17 | Behaviors (Follow, Patrol, Collect, etc., §36) | Behaviors hinzufügbar | Behavior wirkt |
+| AP-6.17 | Behaviors (Follow, Patrol, Collect, etc., §36) | Behaviors hinzufügbar | Behavior wirkt | ✅ |
 
 **DoD Phase 6:** Kleine Szene vollständig visuell baubar (Sprite platzieren, bewegen, skalieren, speichern).
 **Abhängigkeiten:** Phase 4, Phase 5 (alle Mutationen über Commands).
