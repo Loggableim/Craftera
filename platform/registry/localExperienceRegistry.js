@@ -123,6 +123,43 @@ class LocalExperienceRegistry {
     });
   }
 
+  /** Setzt die Sichtbarkeit einer Experience. (AP-10.10) */
+  async setVisibility(experienceId, visibility) {
+    const valid = ['PRIVATE', 'UNLISTED', 'PUBLIC'];
+    const v = String(visibility || '').toUpperCase();
+    if (!valid.includes(v)) {
+      throw new Error(`setVisibility: Ungültige Sichtbarkeit "${visibility}"`);
+    }
+
+    const experience = await this.experienceRepo.get(experienceId);
+    if (!experience) {
+      throw new Error(`setVisibility: Experience "${experienceId}" nicht gefunden`);
+    }
+    experience.visibility = v;
+    await this.experienceRepo.save(experience);
+
+    const registry = await this._load();
+    const entry = registry.experiences.find((e) => e.experienceId === experienceId);
+    if (entry) {
+      entry.visibility = v;
+    } else {
+      registry.experiences.push({
+        experienceId,
+        name: experience.name,
+        visibility: v,
+      });
+    }
+    await this._save(registry);
+
+    return { experienceId, visibility: v };
+  }
+
+  /** Liefert nur öffentlich sichtbare Experiences (keine PRIVATE). (AP-10.10) */
+  async listPublic() {
+    const registry = await this._load();
+    return registry.experiences.filter((e) => e.visibility !== 'PRIVATE');
+  }
+
   /** Kopiert Package in installierten Bereich. (AP-10.5) */
   async install(experienceId) {
     const sourceDir = path.join(this.dataDir, 'packages', experienceId);
