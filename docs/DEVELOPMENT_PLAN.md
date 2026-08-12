@@ -217,11 +217,11 @@
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
 | AP-8.1 | AIProvider-Interface (`generate`, `stream`, `generate_structured`, `tool_call`, `vision`, `embeddings`, `capabilities`) | Interface definiert | Code-Review | ✅ |
-| AP-8.2 | OpenAI-Provider | generate/stream funktionieren | Live-Test mit Key |
-| AP-8.3 | Anthropic-Provider | generate funktioniert | Live-Test |
-| AP-8.4 | OpenRouter-Provider | generate funktioniert | Live-Test |
-| AP-8.5 | Ollama-Provider (lokal) | generate funktioniert | Live-Test |
-| AP-8.6 | OpenAI-kompatible-API-Provider | generate funktioniert | Live-Test |
+| AP-8.2 | OpenAI-Provider | generate/stream funktionieren | Live-Test mit Key | ⏭️ |
+| AP-8.3 | Anthropic-Provider | generate funktioniert | Live-Test | ⏭️ |
+| AP-8.4 | OpenRouter-Provider | generate funktioniert | Live-Test | ⏭️ |
+| AP-8.5 | Ollama-Provider (lokal) | generate funktioniert | Live-Test | ⏭️ |
+| AP-8.6 | OpenAI-kompatible-API-Provider | generate funktioniert | Live-Test | ⏭️ |
 | AP-8.7 | Credential Store (OS Credential Manager + verschlüsselte Settings) | Keys lokal, nie in Git/Projects | Test: Key nicht in Projekt |
 | AP-8.8 | Model Profiles (Aufgaben→Modell-Zuordnung) | Profile konfigurierbar | Settings speichert Profile |
 | AP-8.9 | AI Command Tools (AI ruft Command API auf) | AI führt Commands aus | AI ändert Projekt |
