@@ -290,7 +290,7 @@
 | AP-11.2 | Play-Flow: Check Local Version → Check Required → Install/Update → Verify → Prepare → Start | Ablauf real | Play startet Game | ✅ |
 | AP-11.3 | Runtime Host (`prepare(experienceId)`) | Host lädt Manifest + Projekt + Save | Host liefert Daten | ✅ |
 | AP-11.4 | Platform API (`getCurrentUser`, `saveData`, `loadData`) | API funktioniert | Save/Load-Test | ✅ |
-| AP-11.5 | Save-Isolation (`userdata/<experience-id>/`) | Saves pro Experience getrennt | Test: kein Cross-Access |
+| AP-11.5 | Save-Isolation (`userdata/<experience-id>/`) | Saves pro Experience getrennt | Test: kein Cross-Access | ✅ |
 | AP-11.6 | Sandbox-Grundlage (Capability-Modell, Default DENY) | Permissions geprüft | Test: nicht erlaubte Capability blockiert |
 | AP-11.7 | Play-Viewport (Experience rendern) | Game läuft im Client | Game spielbar |
 | AP-11.8 | Library: Install + Play | Library zeigt installierte, Play startet | Loop funktioniert |
