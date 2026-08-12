@@ -372,7 +372,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-15.1 | RemoteExperienceRegistry (Interface-Implementierung) | Remote-Registry ersetzt lokal | Interface erfüllt |
+| AP-15.1 | RemoteExperienceRegistry (Interface-Implementierung) | Remote-Registry ersetzt lokal | Interface erfüllt | ✅ |
 | AP-15.2 | Auth-Service (Accounts, Sessions) | Login/Logout | Test |
 | AP-15.3 | Creator Identity | Creator-Profil | Test |
 | AP-15.4 | Package-Upload | Upload funktioniert | Datei hochgeladen |
