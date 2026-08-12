@@ -23,6 +23,7 @@ const { createProject } = require('../../engine/project.js');
 const { LocalExperienceRegistry } = require('../../platform/registry/localExperienceRegistry.js');
 const { TaskRepository } = require('../../platform/tasks/taskRepository.js');
 const playService = require('../../runtime/godot/playService.js');
+const { RuntimeSession } = require('../../runtime/godot/runtimeSession.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -44,6 +45,9 @@ const experienceRepo = new ExperienceRepository(getDataDir());
 const registry = new LocalExperienceRegistry(getDataDir());
 // Task-Repository (AP-12.9).
 const taskRepo = new TaskRepository(getDataDir());
+
+// Runtime-Sessions pro Experience (AP-7.10).
+const runtimeSessions = new Map();
 
 // MIME-Types für die ausgelieferten Dateitypen.
 const MIME_TYPES = {
@@ -233,8 +237,45 @@ const server = http.createServer((req, res) => {
     const handler = {
       publish: () => registry.publish(experienceId),
       install: () => registry.install(experienceId),
-      play: () => playService.play(getDataDir(), experienceId),
+      play: () => {
+        // Persistente Session starten (AP-7.10), damit Pause/Stop/Restart
+        // auf denselben Godot-Prozess zugreifen können.
+        let session = runtimeSessions.get(experienceId);
+        if (!session) {
+          session = new RuntimeSession({ dataDir: getDataDir(), experienceId });
+          runtimeSessions.set(experienceId, session);
+        }
+        return session.start();
+      },
     }[action];
+
+    handler().then((result) => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    }).catch((err) => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    });
+    return;
+  }
+
+  // REST-API: Play-Modi (AP-7.10): pause/stop/restart.
+  const playModeMatch = req.url.match(/^\/api\/experiences\/([^/]+)\/play\/(pause|stop|restart)$/);
+  if (playModeMatch && req.method === 'POST') {
+    const experienceId = decodeURIComponent(playModeMatch[1]);
+    const mode = playModeMatch[2];
+
+    let session = runtimeSessions.get(experienceId);
+    if (!session) {
+      session = new RuntimeSession({ dataDir: getDataDir(), experienceId });
+      runtimeSessions.set(experienceId, session);
+    }
+
+    const handler = {
+      pause: () => session.pause(),
+      stop: () => session.stop(),
+      restart: () => session.restart(),
+    }[mode];
 
     handler().then((result) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });

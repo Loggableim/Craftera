@@ -688,10 +688,12 @@
   }
 
   /**
-   * Play-Toolbar (AP-3.8, AP-7.9).
+   * Play-Toolbar (AP-3.8, AP-7.9, AP-7.10).
    * Play/Stop/Pause-Buttons mit echtem Zustand (stopped/playing/paused).
    * Play startet die Runtime (Godot) real über den Server-Endpoint
    * POST /api/experiences/:id/play (AP-7.9).
+   * Pause/Stop/Restart steuern die laufende Session über
+   * POST /api/experiences/:id/play/{pause|stop|restart} (AP-7.10).
    */
   let playState = 'stopped';
 
@@ -731,6 +733,22 @@
     }
   }
 
+  /** Ruft einen Play-Modus-Endpoint auf (pause/stop/restart). */
+  async function callPlayMode(mode) {
+    const experienceId = getQueryParam('experienceId');
+    if (!experienceId) {
+      log('Keine Experience geladen.', 'error');
+      return;
+    }
+    try {
+      const result = await window.craftera.api.post(`/api/experiences/${experienceId}/play/${mode}`);
+      setPlayState(result.state || 'stopped');
+      log(`Play-Modus ${mode}: ${result.state}`, 'info');
+    } catch (err) {
+      log(`Play-Modus ${mode} fehlgeschlagen: ${err.message}`, 'error');
+    }
+  }
+
   /** Initialisiert die Play-Toolbar-Buttons. */
   function initPlayToolbar() {
     const play = document.getElementById('play-btn');
@@ -739,8 +757,8 @@
     if (!play || !pause || !stop) return;
 
     play.addEventListener('click', startRuntime);
-    pause.addEventListener('click', () => setPlayState('paused'));
-    stop.addEventListener('click', () => setPlayState('stopped'));
+    pause.addEventListener('click', () => callPlayMode('pause'));
+    stop.addEventListener('click', () => callPlayMode('stop'));
 
     updatePlayButtons();
   }
