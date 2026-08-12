@@ -140,7 +140,7 @@
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
 | AP-5.1 | Command-Dispatch (`executeCommand`) | Commands ausführbar | Unit-Test | ✅ |
-| AP-5.2 | Command: `CreateEntity` | Entity erzeugt, invertierbar | Unit-Test |
+| AP-5.2 | Command: `CreateEntity` | Entity erzeugt, invertierbar | Unit-Test | ✅ |
 | AP-5.3 | Command: `DeleteEntity` | Entity entfernt, invertierbar | Unit-Test |
 | AP-5.4 | Command: `MoveEntity` / `ScaleEntity` | Transform geändert, invertierbar | Unit-Test |
 | AP-5.5 | Command: `AddComponent` / `RemoveComponent` | Component hinzugefügt/entfernt | Unit-Test |
