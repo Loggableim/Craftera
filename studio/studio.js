@@ -232,6 +232,35 @@
   }
 
   /**
+   * Objektselektion (AP-6.2).
+   * Setzt die ausgewählte Entity und rendert den Inspector.
+   * @param {object|null} entity - Ausgewählte Entity oder null.
+   */
+  function selectEntity(entity) {
+    renderInspector(entity);
+  }
+
+  /**
+   * Hit-Test: findet die Entity, deren Sprite die Klick-Koordinaten enthält.
+   * @param {object[]} entities - Entities des Projekts.
+   * @param {number} x - Klick-X (Canvas-Koordinate).
+   * @param {number} y - Klick-Y (Canvas-Koordinate).
+   * @returns {object|null} Getroffene Entity oder null.
+   */
+  function hitTestEntity(entities, x, y) {
+    for (let i = entities.length - 1; i >= 0; i--) {
+      const entity = entities[i];
+      const t = entity.transform || { x: 0, y: 0, scale: 1, rotation: 0 };
+      const size = 40 * (t.scale || 1);
+      const half = size / 2;
+      if (x >= t.x - half && x <= t.x + half && y >= t.y - half && y <= t.y + half) {
+        return entity;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -463,5 +492,6 @@
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
+    selectEntity, hitTestEntity,
   };
 })();
