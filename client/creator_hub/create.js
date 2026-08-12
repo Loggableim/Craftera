@@ -33,12 +33,25 @@
       row.className = 'experience-row';
       row.innerHTML = `
         <span class="experience-name"></span>
+        <span class="experience-status"></span>
         <button class="btn btn-edit" type="button">Edit</button>
+        <button class="btn btn-publish" type="button">Publish</button>
       `;
       row.querySelector('.experience-name').textContent = exp.name;
+      row.querySelector('.experience-status').textContent = exp.status || 'draft';
       row.querySelector('.btn-edit').addEventListener('click', () => {
         // Studio-Route: Experience im Studio öffnen (AP-3.2).
         window.location.href = `/studio/?experienceId=${encodeURIComponent(exp.experienceId)}`;
+      });
+      row.querySelector('.btn-publish').addEventListener('click', async () => {
+        const statusEl = row.querySelector('.experience-status');
+        statusEl.textContent = 'publiziere …';
+        try {
+          const result = await window.craftera.api.post(`/api/experiences/${encodeURIComponent(exp.experienceId)}/publish`);
+          statusEl.textContent = result.status || 'published';
+        } catch (err) {
+          statusEl.textContent = `Fehler: ${err.message}`;
+        }
       });
       container.appendChild(row);
     });

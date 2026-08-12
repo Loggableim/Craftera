@@ -272,7 +272,7 @@
 | AP-10.8 | `launch(experienceId)` | Startet installierte Experience | Runtime startet | ⏭️ |
 | AP-10.9 | REST-Endpoints: publish/install/play | API funktioniert | `curl`-Test | ✅ |
 | AP-10.10 | Visibility (PRIVATE/UNLISTED/PUBLIC) | Sichtbarkeit steuerbar | Test: private nicht in Discover | ✅ |
-| AP-10.11 | Creator Hub: Publish-Button anbinden | Button publiziert real | Game erscheint im Client |
+| AP-10.11 | Creator Hub: Publish-Button anbinden | Button publiziert real | Game erscheint im Client | ✅ |
 
 **DoD Phase 10:** Publiziertes Game erscheint im Client.
 **Abhängigkeiten:** Phase 2 (Experience), Phase 9 (Packaging).

@@ -181,6 +181,18 @@ body {
   font-size: 0.85rem;
 }
 
+.experience-status {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-left: auto;
+  margin-right: 0.75rem;
+}
+
+.btn-publish {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+}
+
 /* --- Sektions-Überschriften --- */
 .section-title {
   margin: 0 0 var(--space-2);
