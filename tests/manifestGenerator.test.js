@@ -10,6 +10,17 @@ const test = require('node:test');
 const assert = require('node:assert');
 
 const { generateManifest } = require('../platform/package/manifestGenerator.js');
+const { PACKAGE_FORMAT_VERSION } = require('../platform/package/packageFormatVersion.js');
+const { FORMAT_VERSION } = require('../engine/project.js');
+
+test('generateManifest enthält packageFormatVersion getrennt von formatVersion', () => {
+  const manifest = generateManifest({ experienceId: 'exp_1', formatVersion: 99 });
+  assert.strictEqual(manifest.packageFormatVersion, PACKAGE_FORMAT_VERSION);
+  assert.strictEqual(manifest.formatVersion, 99);
+  // packageFormatVersion kommt aus einem eigenen Modul, getrennt von formatVersion.
+  assert.strictEqual(typeof PACKAGE_FORMAT_VERSION, 'number');
+  assert.strictEqual(typeof FORMAT_VERSION, 'number');
+});
 
 test('generateManifest erzeugt Manifest mit allen Pflichtfeldern', () => {
   const manifest = generateManifest({

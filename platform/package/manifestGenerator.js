@@ -7,6 +7,8 @@
  * `versionId`, `runtimeVersion`, `entryScene`, `permissions`, `contentHash`.
  */
 
+const { PACKAGE_FORMAT_VERSION } = require('./packageFormatVersion.js');
+
 /**
  * Erzeugt ein Manifest.
  * @param {object} input - { experienceId, versionId, runtimeVersion, entryScene, permissions, contentHash, formatVersion? }
@@ -16,6 +18,7 @@ function generateManifest(input = {}) {
   if (!input.experienceId) throw new Error('generateManifest: "experienceId" ist erforderlich');
 
   return {
+    packageFormatVersion: PACKAGE_FORMAT_VERSION,
     formatVersion: input.formatVersion || 1,
     experienceId: input.experienceId,
     versionId: input.versionId || '',
