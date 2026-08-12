@@ -13,13 +13,36 @@ const path = require('node:path');
 
 const { PACKAGE_STRUCTURE } = require('./packageStructure.js');
 
+// Pfade, die nie ins Package dürfen (Nicht-Laufzeitdaten, AP-9.8).
+const EXCLUDED_PATTERNS = [
+  '.git', '.gitignore', 'node_modules', '.data', 'credentials.json',
+  'modelProfiles.json', '*.log', 'logs', 'ai-memory', 'memory',
+];
+
+/**
+ * Prüft, ob ein relativer Pfad ausgeschlossen werden muss.
+ * @param {string} relPath - Relativer Pfad.
+ * @returns {boolean} true, wenn ausgeschlossen.
+ */
+function isExcluded(relPath) {
+  const parts = relPath.split(/[\\/]/);
+  return EXCLUDED_PATTERNS.some((pattern) => {
+    if (pattern.includes('*')) {
+      const re = new RegExp('^' + pattern.replace(/\./g, '\\.').replace(/\*/g, '.*') + '$');
+      return parts.some((p) => re.test(p));
+    }
+    return parts.includes(pattern);
+  });
+}
+
 /**
  * Erzeugt ein Package aus einem GameProject.
  * @param {object} project - GameProject-Objekt.
  * @param {string} outputDir - Wurzelverzeichnis, in das das Package geschrieben wird.
+ * @param {object} opts - { sourceDir? } optionales Quellverzeichnis zum Kopieren von Laufzeitdaten.
  * @returns {Promise<string>} Pfad zum Package-Verzeichnis.
  */
-async function buildPackage(project, outputDir) {
+async function buildPackage(project, outputDir, opts = {}) {
   if (!project || !project.projectId) {
     throw new Error('buildPackage: Projekt mit projectId ist erforderlich');
   }
@@ -59,7 +82,38 @@ async function buildPackage(project, outputDir) {
     'utf8'
   );
 
+  // Laufzeitdaten aus sourceDir kopieren (Nicht-Laufzeitdaten ausschließen, AP-9.8).
+  if (opts.sourceDir) {
+    await copyRuntimeFiles(opts.sourceDir, packageDir);
+  }
+
   return packageDir;
 }
 
-module.exports = { buildPackage };
+/**
+ * Kopiert Laufzeitdateien aus sourceDir nach packageDir und schließt
+ * Nicht-Laufzeitdaten aus (AI-Memory, Logs, Keys, Git-History).
+ * @param {string} sourceDir - Quellverzeichnis.
+ * @param {string} packageDir - Package-Wurzel.
+ */
+async function copyRuntimeFiles(sourceDir, packageDir) {
+  async function walk(dir, relBase) {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const relPath = relBase ? `${relBase}/${entry.name}` : entry.name;
+      if (isExcluded(relPath)) continue;
+      const src = path.join(dir, entry.name);
+      const dest = path.join(packageDir, 'runtime', relPath);
+      if (entry.isDirectory()) {
+        await fs.mkdir(dest, { recursive: true });
+        await walk(src, relPath);
+      } else {
+        await fs.mkdir(path.dirname(dest), { recursive: true });
+        await fs.copyFile(src, dest);
+      }
+    }
+  }
+  await walk(sourceDir, '');
+}
+
+module.exports = { buildPackage, isExcluded, EXCLUDED_PATTERNS };

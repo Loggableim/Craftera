@@ -248,7 +248,7 @@
 | AP-9.5 | Validation (Package vollständig, Assets vorhanden) | Validierung prüft | Test: fehlende Datei → Fehler | ✅ |
 | AP-9.6 | Runtime-Compatibility-Check (`minimumRuntimeVersion`, `targetRuntimeVersion`) | Kompatibilität geprüft | Test: inkompatibel → Fehler | ✅ |
 | AP-9.7 | Package-Format-Versionierung | `packageFormatVersion` getrennt | Doku | ✅ |
-| AP-9.8 | Ausschluss von Nicht-Laufzeitdaten (AI-Memory, Logs, Keys, Git-History) | Package enthält nur Laufzeitdaten | Test: Keys nicht im Package |
+| AP-9.8 | Ausschluss von Nicht-Laufzeitdaten (AI-Memory, Logs, Keys, Git-History) | Package enthält nur Laufzeitdaten | Test: Keys nicht im Package | ✅ |
 
 **DoD Phase 9:** Experience Package reproduzierbar erzeugbar.
 **Abhängigkeiten:** Phase 4 (GameProject), Phase 7 (Runtime-Metadaten).
