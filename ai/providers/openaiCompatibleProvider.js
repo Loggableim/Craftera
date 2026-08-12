@@ -35,6 +35,29 @@ function ollamaFreeKey() {
 }
 
 /**
+ * Extrahiert JSON aus einer Modell-Antwort (entfernt Markdown-Codefences).
+ * @param {string} text - Rohe Antwort.
+ * @returns {object} Geparstes JSON.
+ */
+function parseJsonResponse(text) {
+  const cleaned = String(text || '')
+    .replace(/```json/gi, '')
+    .replace(/```/g, '')
+    .trim();
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    // JSON aus dem Text extrahieren (zwischen ersten { und letzten }).
+    const start = cleaned.indexOf('{');
+    const end = cleaned.lastIndexOf('}');
+    if (start !== -1 && end > start) {
+      return JSON.parse(cleaned.slice(start, end + 1));
+    }
+    throw new Error('OpenAICompatibleProvider: Antwort ist kein gültiges JSON');
+  }
+}
+
+/**
  * OpenAI-kompatibler Provider.
  */
 class OpenAICompatibleProvider extends AIProvider {
@@ -98,18 +121,8 @@ class OpenAICompatibleProvider extends AIProvider {
     const messages = (params.messages || []).concat([
       { role: 'system', content: 'Antworte ausschließlich mit gültigem JSON.' },
     ]);
-    const text = await this._chat(messages, { model: params.model });
-    try {
-      return JSON.parse(text);
-    } catch {
-      // JSON aus dem Text extrahieren (zwischen ersten { und letzten }).
-      const start = text.indexOf('{');
-      const end = text.lastIndexOf('}');
-      if (start !== -1 && end > start) {
-        return JSON.parse(text.slice(start, end + 1));
-      }
-      throw new Error('OpenAICompatibleProvider: Antwort ist kein gültiges JSON');
-    }
+    const text = await this._chat(messages, { model: params.model, maxTokens: params.maxTokens || 800 });
+    return parseJsonResponse(text);
   }
 
   /** Tool-Call (nicht unterstützt — ehrlich). */
@@ -140,4 +153,4 @@ class OpenAICompatibleProvider extends AIProvider {
   }
 }
 
-module.exports = { OpenAICompatibleProvider, ollamaFreeKey, DEFAULT_MODEL, FREE_MODELS };
+module.exports = { OpenAICompatibleProvider, ollamaFreeKey, parseJsonResponse, DEFAULT_MODEL, FREE_MODELS };
