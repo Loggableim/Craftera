@@ -761,9 +761,11 @@
   }
 
   /**
-   * AI-Panel (AP-3.9).
-   * Chat-Gerüst: Nachrichten-Liste + Eingabefeld + Senden-Button.
-   * Noch ohne Funktion — die AI-Anbindung folgt in Phase 8.
+   * AI-Panel (AP-3.9, AP-8.12).
+   * Chat-Gerüst mit echter Command-Ausführung: Bei Senden wird das Projekt
+   * geladen, eine einfache Anweisung (z.B. "Verschiebe 200px") in einen
+   * Command übersetzt, ausgeführt und gespeichert. Ohne API-Key wird eine
+   * simulierte AI verwendet, die strukturierte Commands erzeugt.
    */
   function renderAI() {
     const body = document.getElementById('ai-body');
@@ -781,14 +783,28 @@
     const inputRow = document.createElement('div');
     inputRow.className = 'ai-input-row';
     inputRow.innerHTML = `
-      <input type="text" id="ai-input" class="ai-input" placeholder="Frage die AI…">
+      <input type="text" id="ai-input" class="ai-input" placeholder="z.B. Verschiebe 200px">
       <button type="button" id="ai-send" class="btn">Senden</button>
     `;
     body.appendChild(inputRow);
 
     const send = inputRow.querySelector('#ai-send');
     const input = inputRow.querySelector('#ai-input');
-    send.addEventListener('click', () => {
+
+    /** Übersetzt eine einfache Anweisung in einen Command (simulierte AI). */
+    function parseAiInstruction(text, project) {
+      const lower = text.toLowerCase();
+      const moveMatch = lower.match(/verschiebe\s+(\d+)px/);
+      if (moveMatch) {
+        const delta = Number(moveMatch[1]);
+        const entity = project.entities[0];
+        if (!entity) throw new Error('Keine Entity im Projekt zum Verschieben.');
+        return { command: 'MoveEntity', entityId: entity.entityId, x: entity.transform.x + delta, y: entity.transform.y };
+      }
+      throw new Error('Anweisung nicht verstanden. Beispiel: "Verschiebe 200px"');
+    }
+
+    send.addEventListener('click', async () => {
       const text = input.value.trim();
       if (!text) return;
       const msg = document.createElement('div');
@@ -796,12 +812,48 @@
       msg.textContent = text;
       messages.appendChild(msg);
       input.value = '';
-      // Noch ohne Funktion — Hinweis anzeigen.
-      const hint = document.createElement('div');
-      hint.className = 'ai-hint';
-      hint.textContent = 'AI-Funktion folgt in Phase 8.';
-      messages.appendChild(hint);
+
+      const project = await loadProject();
+      if (!project) {
+        const hint = document.createElement('div');
+        hint.className = 'ai-hint';
+        hint.textContent = 'Kein Projekt geladen.';
+        messages.appendChild(hint);
+        return;
+      }
+
+      try {
+        const command = parseAiInstruction(text, project);
+        // Command ausführen (simulierte AI über die Command-API).
+        const result = applyCommand(project, command);
+        await saveProject(project);
+        const done = document.createElement('div');
+        done.className = 'ai-assistant';
+        done.textContent = `Ausgeführt: ${command.command} (${result ? 'ok' : 'ok'}). Projekt gespeichert.`;
+        messages.appendChild(done);
+      } catch (err) {
+        const hint = document.createElement('div');
+        hint.className = 'ai-hint';
+        hint.textContent = `Fehler: ${err.message}`;
+        messages.appendChild(hint);
+      }
     });
+
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') send.click();
+    });
+  }
+
+  /** Führt einen strukturierten Command inline aus (simulierte AI). */
+  function applyCommand(project, command) {
+    if (command.command === 'MoveEntity') {
+      const entity = project.entities.find((e) => e.entityId === command.entityId);
+      if (!entity) throw new Error('Entity nicht gefunden');
+      entity.transform.x = Number(command.x);
+      entity.transform.y = Number(command.y);
+      return true;
+    }
+    throw new Error(`Unbekannter Command "${command.command}"`);
   }
 
   /**
@@ -858,6 +910,6 @@
     setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
     reparentEntity, getChildren, renameEntity, setEntityLocked, setEntityVisible,
     setTransformValue, setComponentProp, addComponentToEntity, removeComponentFromEntity,
-    importAsset,
+    importAsset, applyCommand,
   };
 })();
