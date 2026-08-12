@@ -11,9 +11,9 @@
  */
 
 (function () {
-  // Datenquelle: vorerst leer. Wird später durch die API ersetzt.
-  function loadDiscoverData() {
-    return [];
+  // Datenquelle: Experience-API (AP-2.7).
+  async function loadDiscoverData() {
+    return window.craftera.api.get('/api/experiences');
   }
 
   /** Filtert die Liste nach dem Suchbegriff (Name oder Tag). */
@@ -48,12 +48,12 @@
   }
 
   /** Rendert die Discover-View in den Container. */
-  function renderDiscover() {
+  async function renderDiscover() {
     const list = document.getElementById('discover-list');
     const search = document.getElementById('discover-search');
     if (!list || !search) return;
 
-    const all = loadDiscoverData();
+    const all = await loadDiscoverData();
 
     function update() {
       const filtered = filterExperiences(all, search.value);

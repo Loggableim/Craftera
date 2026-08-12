@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * Craftera Create-View (AP-1.8).
+ * Craftera Create-View (AP-1.8, AP-2.8).
  *
  * Creator Hub mit "New Experience"-Formular (Name, Slug, Tags).
- * Das Formular rendert hier nur das UI-Gerüst. Die Anbindung an die
- * Experience-API (POST /api/experiences) folgt in AP-2.8.
+ * Der Submit erstellt eine echte Experience über die API
+ * (POST /api/experiences) und zeigt Erfolg/Fehler an.
  */
 
 (function () {
@@ -15,11 +15,26 @@
     const status = document.getElementById('create-status');
     if (!form || !status) return;
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
-      // AP-1.8: nur UI-Gerüst. Echte Erstellung folgt in AP-2.8 (API-Anbindung).
-      status.textContent = 'Erstellung folgt in AP-2.8 (API-Anbindung).';
+
+      const name = document.getElementById('create-name').value.trim();
+      const slug = document.getElementById('create-slug').value.trim();
+      const tagsRaw = document.getElementById('create-tags').value.trim();
+      const tags = tagsRaw ? tagsRaw.split(',').map((t) => t.trim()).filter(Boolean) : [];
+
+      status.textContent = 'Erstelle Experience …';
       status.className = 'form-status';
+
+      try {
+        const created = await window.craftera.api.post('/api/experiences', { name, slug, tags });
+        status.textContent = `Experience "${created.name}" erstellt (${created.experienceId}).`;
+        status.className = 'form-status form-status-success';
+        form.reset();
+      } catch (err) {
+        status.textContent = `Fehler: ${err.message}`;
+        status.className = 'form-status form-status-error';
+      }
     });
   }
 
