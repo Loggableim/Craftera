@@ -216,7 +216,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-8.1 | AIProvider-Interface (`generate`, `stream`, `generate_structured`, `tool_call`, `vision`, `embeddings`, `capabilities`) | Interface definiert | Code-Review |
+| AP-8.1 | AIProvider-Interface (`generate`, `stream`, `generate_structured`, `tool_call`, `vision`, `embeddings`, `capabilities`) | Interface definiert | Code-Review | ✅ |
 | AP-8.2 | OpenAI-Provider | generate/stream funktionieren | Live-Test mit Key |
 | AP-8.3 | Anthropic-Provider | generate funktioniert | Live-Test |
 | AP-8.4 | OpenRouter-Provider | generate funktioniert | Live-Test |
