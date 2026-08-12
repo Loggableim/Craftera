@@ -184,18 +184,19 @@
   }
 
   /**
-   * Rendert das Viewport-Panel (AP-3.5).
-   * Initialisiert den Canvas und zeichnet den leeren Zustand (Hintergrund).
-   * Später (Phase 6) werden hier Entities als Sprites gezeichnet.
+   * Rendert das Viewport-Panel (AP-3.5, AP-6.1).
+   * Zeichnet den Hintergrund + Raster und rendert Entities als Sprites
+   * (farbige Rechtecke an ihrer Transform-Position).
+   * @param {object[]} entities - Entities des Projekts (optional).
    */
-  function renderViewport() {
+  function renderViewport(entities = []) {
     const canvas = document.getElementById('viewport-canvas-el');
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Leerer Zustand: dunkler Hintergrund + Raster.
+    // Hintergrund + Raster.
     ctx.fillStyle = '#0b0d11';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -213,6 +214,21 @@
       ctx.lineTo(canvas.width, y);
       ctx.stroke();
     }
+
+    // Entities als Sprites zeichnen (AP-6.1).
+    entities.forEach((entity) => {
+      const t = entity.transform || { x: 0, y: 0, scale: 1, rotation: 0 };
+      const size = 40 * (t.scale || 1);
+      ctx.save();
+      ctx.translate(t.x, t.y);
+      if (t.rotation) ctx.rotate((t.rotation * Math.PI) / 180);
+      ctx.fillStyle = '#2f6fed';
+      ctx.fillRect(-size / 2, -size / 2, size, size);
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(-size / 2, -size / 2, size, size);
+      ctx.restore();
+    });
   }
 
   /**

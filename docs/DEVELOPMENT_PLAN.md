@@ -162,7 +162,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-6.1 | Canvas-Renderer (Entities als Sprites zeichnen) | Entities im Viewport sichtbar | Viewport zeigt Objekte |
+| AP-6.1 | Canvas-Renderer (Entities als Sprites zeichnen) | Entities im Viewport sichtbar | Viewport zeigt Objekte | ✅ |
 | AP-6.2 | Objektselektion (Klick auf Entity) | Entity selektierbar, Inspector zeigt sie | Klick → Inspector |
 | AP-6.3 | Drag & Drop / Move (Entity verschieben) | Entity per Maus bewegen | Move ändert Transform |
 | AP-6.4 | Scale (Größe ändern) | Entity skalierbar | Scale ändert Transform |
