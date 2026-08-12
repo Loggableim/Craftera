@@ -66,6 +66,69 @@
     });
   }
 
+  /**
+   * Rendert das Inspector-Panel (AP-3.4).
+   * Zeigt Transform (x/y/scale/rotation) und Components einer ausgewählten
+   * Entity. Ohne Auswahl wird der leere Zustand angezeigt.
+   * @param {object|null} entity - Ausgewählte Entity oder null.
+   */
+  function renderInspector(entity) {
+    const body = document.getElementById('inspector-body');
+    if (!body) return;
+
+    body.innerHTML = '';
+    if (!entity) {
+      const empty = document.createElement('p');
+      empty.className = 'empty-state';
+      empty.textContent = 'Keine Auswahl.';
+      body.appendChild(empty);
+      return;
+    }
+
+    // Transform-Sektion.
+    const transform = entity.transform || { x: 0, y: 0, scale: 1, rotation: 0 };
+    const transformSection = document.createElement('div');
+    transformSection.className = 'inspector-section';
+    transformSection.innerHTML = '<h3 class="inspector-section-title">Transform</h3>';
+    const transformFields = [
+      ['x', transform.x],
+      ['y', transform.y],
+      ['scale', transform.scale],
+      ['rotation', transform.rotation],
+    ];
+    transformFields.forEach(([key, value]) => {
+      const row = document.createElement('div');
+      row.className = 'inspector-row';
+      row.innerHTML = `<span class="inspector-label"></span><span class="inspector-value"></span>`;
+      row.querySelector('.inspector-label').textContent = key;
+      row.querySelector('.inspector-value').textContent = String(value);
+      transformSection.appendChild(row);
+    });
+    body.appendChild(transformSection);
+
+    // Components-Sektion.
+    const components = entity.components || [];
+    const compSection = document.createElement('div');
+    compSection.className = 'inspector-section';
+    compSection.innerHTML = '<h3 class="inspector-section-title">Components</h3>';
+    if (!components.length) {
+      const empty = document.createElement('p');
+      empty.className = 'empty-state';
+      empty.textContent = 'Keine Components.';
+      compSection.appendChild(empty);
+    } else {
+      components.forEach((comp) => {
+        const row = document.createElement('div');
+        row.className = 'inspector-row';
+        row.innerHTML = `<span class="inspector-label"></span><span class="inspector-value"></span>`;
+        row.querySelector('.inspector-label').textContent = comp.type;
+        row.querySelector('.inspector-value').textContent = JSON.stringify(comp.props || {});
+        compSection.appendChild(row);
+      });
+    }
+    body.appendChild(compSection);
+  }
+
   window.craftera = window.craftera || {};
-  window.craftera.studio = { loadExperience, renderHierarchy };
+  window.craftera.studio = { loadExperience, renderHierarchy, renderInspector };
 })();
