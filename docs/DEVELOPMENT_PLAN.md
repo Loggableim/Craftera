@@ -148,7 +148,7 @@
 | AP-5.7 | Command: `CreateScene` / `DeleteScene` | Scenes erzeugt/entfernt | Unit-Test | ✅ |
 | AP-5.8 | CommandHistory (Undo/Redo-Stacks) | undo/redo funktionieren | Unit-Test: 3 Commands → undo×3 → redo×3 | ✅ |
 | AP-5.9 | Undo/Redo-UI im Studio (Toolbar-Buttons) | Buttons aktiv/inaktiv korrekt | Klick undo/redo ändert Projekt | ✅ |
-| AP-5.10 | Command-API für AI vorbereiten (strukturierte JSON-Commands) | Commands als JSON serialisierbar | Test: JSON→execute |
+| AP-5.10 | Command-API für AI vorbereiten (strukturierte JSON-Commands) | Commands als JSON serialisierbar | Test: JSON→execute | ✅ |
 
 **DoD Phase 5:** Undo/Redo funktioniert.
 **Abhängigkeiten:** Phase 4 (GameProject).
