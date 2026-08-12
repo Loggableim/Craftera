@@ -226,9 +226,50 @@
     });
   }
 
+  /**
+   * Play-Toolbar (AP-3.8).
+   * Play/Stop/Pause-Buttons mit echtem Zustand (stopped/playing/paused).
+   * Die Runtime selbst folgt in Phase 7; hier wird der Modus real umgeschaltet
+   * und in der Console geloggt.
+   */
+  let playState = 'stopped';
+
+  /** Aktualisiert die Button-Zustände anhand des aktuellen playState. */
+  function updatePlayButtons() {
+    const play = document.getElementById('play-btn');
+    const pause = document.getElementById('pause-btn');
+    const stop = document.getElementById('stop-btn');
+    if (!play || !pause || !stop) return;
+
+    play.disabled = playState === 'playing' || playState === 'paused';
+    pause.disabled = playState !== 'playing';
+    stop.disabled = playState === 'stopped';
+  }
+
+  /** Setzt den Play-Modus und loggt ihn. */
+  function setPlayState(state) {
+    playState = state;
+    updatePlayButtons();
+    log(`Play-Modus: ${state}`, 'info');
+  }
+
+  /** Initialisiert die Play-Toolbar-Buttons. */
+  function initPlayToolbar() {
+    const play = document.getElementById('play-btn');
+    const pause = document.getElementById('pause-btn');
+    const stop = document.getElementById('stop-btn');
+    if (!play || !pause || !stop) return;
+
+    play.addEventListener('click', () => setPlayState('playing'));
+    pause.addEventListener('click', () => setPlayState('paused'));
+    stop.addEventListener('click', () => setPlayState('stopped'));
+
+    updatePlayButtons();
+  }
+
   window.craftera = window.craftera || {};
   window.craftera.studio = {
     loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets,
-    log, renderConsole,
+    log, renderConsole, initPlayToolbar, setPlayState,
   };
 })();

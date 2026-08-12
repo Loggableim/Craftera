@@ -11,8 +11,9 @@
   <header class="studio-topbar">
     <div class="studio-brand">Craftera Studio</div>
     <div class="studio-toolbar">
-      <button class="btn" type="button" disabled title="Play (AP-3.8)">▶ Play</button>
-      <button class="btn" type="button" disabled title="Stop (AP-3.8)">■ Stop</button>
+      <button class="btn" id="play-btn" type="button" title="Play">▶ Play</button>
+      <button class="btn" id="pause-btn" type="button" title="Pause" disabled>⏸ Pause</button>
+      <button class="btn" id="stop-btn" type="button" title="Stop" disabled>■ Stop</button>
     </div>
   </header>
 
@@ -71,6 +72,7 @@
     window.craftera.studio.renderViewport();
     window.craftera.studio.renderAssets();
     window.craftera.studio.renderConsole();
+    window.craftera.studio.initPlayToolbar();
     window.craftera.studio.log('Studio geladen.', 'info');
   </script>
 </body>
