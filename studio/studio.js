@@ -161,6 +161,37 @@
     }
   }
 
+  /**
+   * Rendert das Assets-Panel (AP-3.6).
+   * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
+   * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
+   */
+  function renderAssets() {
+    const list = document.getElementById('assets-list');
+    if (!list) return;
+
+    // Datenquelle: Assets des Projekts (noch leer, Phase 6).
+    const assets = [];
+
+    list.innerHTML = '';
+    if (!assets.length) {
+      const empty = document.createElement('p');
+      empty.className = 'empty-state';
+      empty.textContent = 'Keine Assets.';
+      list.appendChild(empty);
+      return;
+    }
+
+    assets.forEach((asset) => {
+      const row = document.createElement('div');
+      row.className = 'asset-item';
+      row.innerHTML = `<span class="asset-name"></span><span class="asset-type"></span>`;
+      row.querySelector('.asset-name').textContent = asset.name;
+      row.querySelector('.asset-type').textContent = asset.type || '';
+      list.appendChild(row);
+    });
+  }
+
   window.craftera = window.craftera || {};
-  window.craftera.studio = { loadExperience, renderHierarchy, renderInspector, renderViewport };
+  window.craftera.studio = { loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets };
 })();
