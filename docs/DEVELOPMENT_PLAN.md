@@ -75,7 +75,7 @@
 |----|--------------|-----|--------------|
 | AP-2.1 | ID-Generator (`createId(type)`) mit stabilen, typ-präfixierten IDs | IDs wie `exp_…`, `ver_…` | Unit-Test: Kollisionsfreiheit | ✅ |
 | AP-2.2 | Experience-Modell (`createExperience`) | Objekt mit `experienceId`, `name`, `slug`, `status`, `tags` | Unit-Test | ✅ |
-| AP-2.3 | ExperienceVersion-Modell (`createVersion`) | Version mit `versionNumber`, `status`, `packageHash` | Unit-Test |
+| AP-2.3 | ExperienceVersion-Modell (`createVersion`) | Version mit `versionNumber`, `status`, `packageHash` | Unit-Test | ✅ |
 | AP-2.4 | ExperienceRepository (JSON-Persistenz) | create/get/list/save funktionieren | Integrationstest: speichern+laden |
 | AP-2.5 | Version-Repository (create/get/list) | Versionen pro Experience | Integrationstest |
 | AP-2.6 | Datenverzeichnis-Konvention (`dataDir`, gitignored) | `.data/` nicht in Git | `git status` sauber |
