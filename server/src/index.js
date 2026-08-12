@@ -18,6 +18,8 @@ const path = require('node:path');
 const { getDataDir } = require('./dataDir.js');
 const { ExperienceRepository } = require('../../platform/experiences/experienceRepository.js');
 const { createExperience } = require('../../engine/experience.js');
+const { saveProject, loadProject } = require('../../engine/serialization.js');
+const { createProject } = require('../../engine/project.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -153,6 +155,59 @@ const server = http.createServer((req, res) => {
           res.writeHead(400, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ error: err.message }));
         }
+      });
+      return;
+    }
+
+    res.writeHead(405, { 'Content-Type': 'text/plain' });
+    res.end('Method Not Allowed');
+    return;
+  }
+
+  // REST-API: Projekt einer Experience (AP-4.8).
+  const projectMatch = req.url.match(/^\/api\/experiences\/([^/]+)\/project$/);
+  if (projectMatch) {
+    const experienceId = decodeURIComponent(projectMatch[1]);
+    const projectDir = path.join(getDataDir(), 'projects', experienceId);
+
+    if (req.method === 'GET') {
+      loadProject(projectDir).then((project) => {
+        if (!project) {
+          // Kein Projekt vorhanden → leeres Projekt erzeugen.
+          const fresh = createProject({ experienceId });
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(fresh));
+          return;
+        }
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(project));
+      }).catch((err) => {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      });
+      return;
+    }
+
+    if (req.method === 'PUT') {
+      let body = '';
+      req.on('data', (chunk) => { body += chunk; });
+      req.on('end', () => {
+        let project;
+        try {
+          project = JSON.parse(body || '{}');
+        } catch {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Ungültiges JSON' }));
+          return;
+        }
+        project.experienceId = experienceId;
+        saveProject(projectDir, project).then(() => {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(project));
+        }).catch((err) => {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        });
       });
       return;
     }
