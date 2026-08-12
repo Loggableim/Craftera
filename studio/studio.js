@@ -278,6 +278,21 @@
   }
 
   /**
+   * Scale (AP-6.4).
+   * Ändert die Größe einer Entity (ändert den Transform-Scale).
+   * @param {object} entity - Entity-Objekt.
+   * @param {number} scale - Neuer Scale-Wert.
+   * @returns {object} Der aktualisierte Transform.
+   */
+  function scaleEntity(entity, scale) {
+    if (!entity || !entity.transform) {
+      throw new Error('scaleEntity: Entity benötigt ein transform-Objekt');
+    }
+    entity.transform.scale = Number(scale);
+    return entity.transform;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -509,6 +524,6 @@
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
-    selectEntity, hitTestEntity, moveEntity,
+    selectEntity, hitTestEntity, moveEntity, scaleEntity,
   };
 })();
