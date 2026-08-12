@@ -309,9 +309,9 @@
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
 | AP-12.1 | GDD-Modell (`GDD.md` + `GDD.json`) | GDD speicherbar | GDD erzeugt | ✅ |
-| AP-12.2 | Game Director (Prompt → GDD) | Director erzeugt GDD | GDD sinnvoll |
-| AP-12.3 | Architect (GDD → Architektur) | Architektur erzeugt | Architektur konsistent |
-| AP-12.4 | Planner (Architektur → Task Graph) | Task Graph erzeugt | Tasks mit Dependencies |
+| AP-12.2 | Game Director (Prompt → GDD) | Director erzeugt GDD | GDD sinnvoll | ⏭️ |
+| AP-12.3 | Architect (GDD → Architektur) | Architektur erzeugt | Architektur konsistent | ⏭️ |
+| AP-12.4 | Planner (Architektur → Task Graph) | Task Graph erzeugt | Tasks mit Dependencies | ⏭️ |
 | AP-12.5 | Task-Modell (`id`, `title`, `agent`, `priority`, `dependencies`, `ownedResources`, `acceptanceCriteria`, `status`) | Task-Modell | Unit-Test |
 | AP-12.6 | Task-Graph-Status (BACKLOG→READY→IN_PROGRESS→REVIEW→TESTING→DONE) | Status-Übergänge | Test |
 | AP-12.7 | Worker-Agents (Gameplay, Scene, UI, Asset, Code, Test) | Worker führen Tasks aus | Tasks erledigt |
