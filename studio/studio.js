@@ -293,6 +293,21 @@
   }
 
   /**
+   * Rotate (AP-6.5).
+   * Ändert die Rotation einer Entity (ändert den Transform-Rotation).
+   * @param {object} entity - Entity-Objekt.
+   * @param {number} rotation - Neue Rotation in Grad.
+   * @returns {object} Der aktualisierte Transform.
+   */
+  function rotateEntity(entity, rotation) {
+    if (!entity || !entity.transform) {
+      throw new Error('rotateEntity: Entity benötigt ein transform-Objekt');
+    }
+    entity.transform.rotation = Number(rotation);
+    return entity.transform;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -524,6 +539,6 @@
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
-    selectEntity, hitTestEntity, moveEntity, scaleEntity,
+    selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity,
   };
 })();
