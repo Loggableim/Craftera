@@ -76,9 +76,13 @@ class RemoteRegistryServer {
         const all = await this.registry.listPublic();
         if (search) {
           const q = search.toLowerCase();
-          const filtered = all.filter((e) =>
-            String(e.name || '').toLowerCase().includes(q) ||
-            (e.tags || []).some((t) => String(t).toLowerCase().includes(q)));
+          const filtered = [];
+          for (const entry of all) {
+            const exp = await this.experienceRepo.get(entry.experienceId);
+            const nameMatch = String(entry.name || '').toLowerCase().includes(q);
+            const tagMatch = (exp && exp.tags || []).some((t) => String(t).toLowerCase().includes(q));
+            if (nameMatch || tagMatch) filtered.push(entry);
+          }
           return this._json(res, 200, filtered);
         }
         return this._json(res, 200, all);
