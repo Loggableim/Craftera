@@ -269,7 +269,7 @@
 | AP-10.5 | `install(experienceId)` | Kopiert Package in installierten Bereich | Installiert-Verzeichnis gefüllt | ✅ |
 | AP-10.6 | `update(experienceId)` | Neue Version installiert | Update wirkt | ✅ |
 | AP-10.7 | `remove(experienceId)` | Experience entfernt | Entfernt | ✅ |
-| AP-10.8 | `launch(experienceId)` | Startet installierte Experience | Runtime startet | ⏭️ |
+| AP-10.8 | `launch(experienceId)` | Startet installierte Experience | Runtime startet | ✅ |
 | AP-10.9 | REST-Endpoints: publish/install/play | API funktioniert | `curl`-Test | ✅ |
 | AP-10.10 | Visibility (PRIVATE/UNLISTED/PUBLIC) | Sichtbarkeit steuerbar | Test: private nicht in Discover | ✅ |
 | AP-10.11 | Creator Hub: Publish-Button anbinden | Button publiziert real | Game erscheint im Client | ✅ |

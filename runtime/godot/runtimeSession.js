@@ -28,11 +28,12 @@ const { loadProject } = require('../../engine/serialization.js');
  */
 function godotBinary() {
   const env = process.env.GODOT_BIN;
-  if (env && fs.existsSync(env)) return env;
+  // GODOT_BIN darf nur eine ausführbare .exe sein (spawn kann bash-Skripte nicht direkt ausführen).
+  if (env && fs.existsSync(env) && env.toLowerCase().endsWith('.exe')) return env;
   const home = process.env.USERPROFILE || process.env.HOME || '';
   const candidates = [
     path.join(home, 'craftera-tools', 'godot', 'Godot_v4.7.1-stable_win64_console.exe'),
-    path.join(home, 'craftera-tools', 'godot', 'godot'),
+    path.join(home, 'craftera-tools', 'godot', 'Godot_v4.7.1-stable_win64.exe'),
   ];
   for (const c of candidates) {
     if (fs.existsSync(c)) return c;

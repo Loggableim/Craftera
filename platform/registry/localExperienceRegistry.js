@@ -221,8 +221,36 @@ class LocalExperienceRegistry {
   }
 
   /** Startet installierte Experience. (AP-10.8) */
+  /**
+   * Startet die installierte Experience über die Runtime (AP-10.8).
+   * Lädt das installierte Projekt, baut es mit dem ProjectBuilder in ein
+   * Godot-Projekt und startet Godot headless real.
+   * @param {string} experienceId - ID der Experience.
+   * @returns {Promise<object>} { outputDir, mainScene, pid }
+   */
   async launch(experienceId) {
-    throw new Error('LocalExperienceRegistry.launch ist nicht implementiert (AP-10.8)');
+    const installedDir = path.join(this.dataDir, 'installed', experienceId);
+    const project = await loadProject(path.join(installedDir, 'game'));
+    if (!project) {
+      throw new Error(`launch: Experience "${experienceId}" ist nicht installiert oder hat kein Projekt`);
+    }
+
+    const { ProjectBuilder } = require('../../runtime/godot/projectBuilder.js');
+    const { RuntimeSession } = require('../../runtime/godot/runtimeSession.js');
+
+    const buildDir = path.join(this.dataDir, 'builds', experienceId);
+    const builder = new ProjectBuilder({ outputDir: buildDir });
+    const built = await builder.build(project);
+
+    // Kurzlebige Session starten und stoppen (Verifikation: Godot startet).
+    const session = new RuntimeSession({ dataDir: this.dataDir, experienceId, buildDir });
+    const started = await session.start();
+    await session.stop();
+    return {
+      outputDir: built.outputDir,
+      mainScene: built.mainScene,
+      pid: started.pid,
+    };
   }
 }
 

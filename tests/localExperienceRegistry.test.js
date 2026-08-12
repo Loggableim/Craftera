@@ -49,8 +49,8 @@ test('search filtert nach Tag', async () => {
   assert.strictEqual(results[0].name, 'Puzzle');
 });
 
-test('noch nicht implementierte Methoden werfen "nicht implementiert"', async () => {
+test('launch wirft, wenn die Experience nicht installiert ist (implementiert, AP-10.8)', async () => {
   const dir = await makeTempDataDir();
   const registry = new LocalExperienceRegistry(dir);
-  await assert.rejects(() => registry.launch('exp_1'), /nicht implementiert/);
+  await assert.rejects(() => registry.launch('exp_1'), /nicht installiert/);
 });
