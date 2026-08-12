@@ -143,7 +143,7 @@
 | AP-5.2 | Command: `CreateEntity` | Entity erzeugt, invertierbar | Unit-Test | ✅ |
 | AP-5.3 | Command: `DeleteEntity` | Entity entfernt, invertierbar | Unit-Test | ✅ |
 | AP-5.4 | Command: `MoveEntity` / `ScaleEntity` | Transform geändert, invertierbar | Unit-Test | ✅ |
-| AP-5.5 | Command: `AddComponent` / `RemoveComponent` | Component hinzugefügt/entfernt | Unit-Test |
+| AP-5.5 | Command: `AddComponent` / `RemoveComponent` | Component hinzugefügt/entfernt | Unit-Test | ✅ |
 | AP-5.6 | Command: `SetProperty` | Property gesetzt, invertierbar | Unit-Test |
 | AP-5.7 | Command: `CreateScene` / `DeleteScene` | Scenes erzeugt/entfernt | Unit-Test |
 | AP-5.8 | CommandHistory (Undo/Redo-Stacks) | undo/redo funktionieren | Unit-Test: 3 Commands → undo×3 → redo×3 |
