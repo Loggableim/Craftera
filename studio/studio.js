@@ -418,6 +418,23 @@
   }
 
   /**
+   * Delete (AP-6.10).
+   * Entfernt eine Entity aus dem Projekt.
+   * @param {object} project - GameProject-Objekt.
+   * @param {string} entityId - ID der zu löschenden Entity.
+   * @returns {boolean} true, wenn gelöscht; false, wenn nicht gefunden.
+   */
+  function deleteEntity(project, entityId) {
+    if (!project || !Array.isArray(project.entities)) {
+      throw new Error('deleteEntity: Projekt benötigt ein entities-Array');
+    }
+    const idx = project.entities.findIndex((e) => e.entityId === entityId);
+    if (idx === -1) return false;
+    project.entities.splice(idx, 1);
+    return true;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -650,6 +667,6 @@
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
-    setZoom, panViewport, selectEntities, boxSelect, duplicateEntity,
+    setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
   };
 })();
