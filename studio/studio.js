@@ -15,6 +15,51 @@
     return params.get(name);
   }
 
+  /**
+   * Lädt das GameProject der Experience über die API (AP-4.9).
+   * @returns {object|null} Projekt oder null, wenn keine Experience geladen.
+   */
+  async function loadProject() {
+    const experienceId = getQueryParam('experienceId');
+    if (!experienceId) return null;
+    try {
+      return await window.craftera.api.get(`/api/experiences/${experienceId}/project`);
+    } catch (err) {
+      log(`Projekt laden fehlgeschlagen: ${err.message}`, 'error');
+      return null;
+    }
+  }
+
+  /**
+   * Speichert das GameProject der Experience über die API (AP-4.9).
+   * @param {object} project - GameProject-Objekt.
+   * @returns {boolean} true bei Erfolg.
+   */
+  async function saveProject(project) {
+    const experienceId = getQueryParam('experienceId');
+    if (!experienceId) return false;
+    try {
+      await window.craftera.api.put(`/api/experiences/${experienceId}/project`, project);
+      log('Projekt gespeichert.', 'info');
+      return true;
+    } catch (err) {
+      log(`Projekt speichern fehlgeschlagen: ${err.message}`, 'error');
+      return false;
+    }
+  }
+
+  /** Initialisiert den Save-Button (AP-4.9). */
+  function initSaveButton() {
+    const save = document.getElementById('save-btn');
+    if (!save) return;
+    save.addEventListener('click', async () => {
+      const project = await loadProject();
+      if (project) {
+        await saveProject(project);
+      }
+    });
+  }
+
   /** Lädt die Experience (Projekt) und zeigt ihre Daten an (AP-3.10). */
   async function loadExperience() {
     const experienceId = getQueryParam('experienceId');
@@ -356,5 +401,6 @@
   window.craftera.studio = {
     loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets,
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
+    loadProject, saveProject, initSaveButton,
   };
 })();
