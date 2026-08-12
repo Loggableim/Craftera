@@ -103,7 +103,7 @@
 | AP-3.7 | Console-Panel (Log-Ausgabe) | Logs erscheinen | Test-Log sichtbar | ✅ |
 | AP-3.8 | Play-Toolbar (Play/Stop/Pause) | Buttons vorhanden | Buttons klickbar | ✅ |
 | AP-3.9 | AI-Panel (Chat-Gerüst, noch ohne Funktion) | Panel vorhanden | Panel rendert | ✅ |
-| AP-3.10 | Projekt-Laden im Studio (via API) | Studio zeigt geladenes Projekt | Projekt-Daten sichtbar |
+| AP-3.10 | Projekt-Laden im Studio (via API) | Studio zeigt geladenes Projekt | Projekt-Daten sichtbar | ✅ |
 
 **DoD Phase 3:** Experience kann aus Creator Hub im Studio geöffnet werden.
 **Abhängigkeiten:** Phase 1, Phase 2 (Experience + Projekt laden).

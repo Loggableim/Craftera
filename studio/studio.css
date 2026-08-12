@@ -32,6 +32,15 @@ body {
   color: #fff;
 }
 
+.studio-project-info {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #aeb4bf;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .studio-toolbar {
   display: flex;
   gap: 0.5rem;

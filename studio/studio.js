@@ -15,12 +15,14 @@
     return params.get(name);
   }
 
-  /** Lädt die Experience und zeigt sie an. */
+  /** Lädt die Experience (Projekt) und zeigt ihre Daten an (AP-3.10). */
   async function loadExperience() {
     const experienceId = getQueryParam('experienceId');
     const brand = document.querySelector('.studio-brand');
+    const info = document.getElementById('project-info');
     if (!experienceId) {
       if (brand) brand.textContent = 'Craftera Studio — keine Experience';
+      if (info) info.textContent = 'Kein Projekt geladen';
       return;
     }
 
@@ -32,8 +34,15 @@
           ? `Craftera Studio — ${exp.name}`
           : `Craftera Studio — ${experienceId}`;
       }
+      // Projekt-Daten sichtbar anzeigen (AP-3.10).
+      if (info) {
+        info.textContent = exp
+          ? `${exp.name} · ${exp.slug} · ${exp.status} · Tags: ${(exp.tags || []).join(', ') || '—'}`
+          : `Projekt ${experienceId} nicht gefunden`;
+      }
     } catch {
       if (brand) brand.textContent = 'Craftera Studio — Fehler beim Laden';
+      if (info) info.textContent = 'Fehler beim Laden des Projekts';
     }
   }
 
