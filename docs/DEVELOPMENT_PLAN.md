@@ -167,7 +167,7 @@
 | AP-6.3 | Drag & Drop / Move (Entity verschieben) | Entity per Maus bewegen | Move ändert Transform | ✅ |
 | AP-6.4 | Scale (Größe ändern) | Entity skalierbar | Scale ändert Transform | ✅ |
 | AP-6.5 | Rotate | Entity rotierbar | Rotation sichtbar | ✅ |
-| AP-6.6 | Grid + Snapping | Raster + Einrasten | Objekt rastet ein |
+| AP-6.6 | Grid + Snapping | Raster + Einrasten | Objekt rastet ein | ✅ |
 | AP-6.7 | Zoom + Pan | Viewport zoombar/verschiebbar | Zoom/Pan funktioniert |
 | AP-6.8 | Multi-Select + Box-Select | Mehrere Entities wählbar | Box-Selektion |
 | AP-6.9 | Copy/Paste + Duplicate | Entities duplizierbar | Duplikat erscheint |

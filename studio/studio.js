@@ -308,6 +308,17 @@
   }
 
   /**
+   * Grid + Snapping (AP-6.6).
+   * Rundet einen Wert auf das nächstgelegene Raster-Vielfache.
+   * @param {number} value - Zu rastender Wert.
+   * @param {number} gridSize - Rastergröße (Standard: 40, entspricht dem Viewport-Raster).
+   * @returns {number} Auf das Raster gerundeter Wert.
+   */
+  function snapToGrid(value, gridSize = 40) {
+    return Math.round(Number(value) / gridSize) * gridSize;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -539,6 +550,6 @@
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
-    selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity,
+    selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
   };
 })();
