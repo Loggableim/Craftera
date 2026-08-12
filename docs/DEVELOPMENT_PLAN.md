@@ -265,7 +265,7 @@
 | AP-10.1 | LocalExperienceRegistry-Klasse | Interface vorhanden | Code-Review | ✅ |
 | AP-10.2 | `publish(experienceId)` | Baut Package, registriert Version, markiert published | Publish → Status published | ✅ |
 | AP-10.3 | `list()` | Alle Experiences | Liste korrekt | ✅ |
-| AP-10.4 | `search(query)` | Suche nach Name/Tag | Suche filtert |
+| AP-10.4 | `search(query)` | Suche nach Name/Tag | Suche filtert | ✅ |
 | AP-10.5 | `install(experienceId)` | Kopiert Package in installierten Bereich | Installiert-Verzeichnis gefüllt |
 | AP-10.6 | `update(experienceId)` | Neue Version installiert | Update wirkt |
 | AP-10.7 | `remove(experienceId)` | Experience entfernt | Entfernt |
