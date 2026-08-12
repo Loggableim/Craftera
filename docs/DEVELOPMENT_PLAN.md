@@ -121,7 +121,7 @@
 | AP-4.2 | Scene-Modell (`createScene`) | Scene mit `sceneId`, `name`, `rootEntityId` | Unit-Test | ✅ |
 | AP-4.3 | Entity-Modell (`createEntity`) | Entity mit `entityId`, `sceneId`, `parentId`, `transform`, `components` | Unit-Test | ✅ |
 | AP-4.4 | Component-Modell (`addComponent`) | Component mit `componentId`, `type`, Props | Unit-Test | ✅ |
-| AP-4.5 | Transform-Modell (`setTransform`) | x/y/scale/rotation setzbar | Unit-Test |
+| AP-4.5 | Transform-Modell (`setTransform`) | x/y/scale/rotation setzbar | Unit-Test | ✅ |
 | AP-4.6 | Serialisierung (`saveProject`/`loadProject`) | `game.project.json` exakt reproduzierbar | Roundtrip-Test: save→load→identisch |
 | AP-4.7 | Format-Versionierung + Migrationspfad | `formatVersion` geprüft | Test: falsche Version wirft Fehler |
 | AP-4.8 | REST-Endpoints: `GET/PUT /api/experiences/:id/project` | Projekt laden/speichern | `curl`-Test |
