@@ -226,7 +226,7 @@
 | AP-8.8 | Model Profiles (Aufgaben→Modell-Zuordnung) | Profile konfigurierbar | Settings speichert Profile | ✅ |
 | AP-8.9 | AI Command Tools (AI ruft Command API auf) | AI führt Commands aus | AI ändert Projekt | ✅ |
 | AP-8.10 | AI Context (Assistent kennt Scene, Selection, Entities, Components) | Kontext an AI übergeben | AI antwortet kontextbezogen | ✅ |
-| AP-8.11 | AI Modification Preview (Preview/Apply/Reject) | Vorschlag vor Anwendung | Preview zeigt Diff |
+| AP-8.11 | AI Modification Preview (Preview/Apply/Reject) | Vorschlag vor Anwendung | Preview zeigt Diff | ✅ |
 | AP-8.12 | AI-Panel im Studio anbinden | Chat verändert Projekt | "Verschiebe 200px" wirkt |
 
 **DoD Phase 8:** AI verändert sichtbares Projekt über Commands.
