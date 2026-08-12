@@ -12,4 +12,6 @@
 
 ## Einträge
 
-_(Noch keine übersprungenen Punkte.)_
+| AP | Grund | Datum | Nötig für Bearbeitung |
+|----|-------|-------|------------------------|
+| AP-7.1 | Godot ist nicht installiert und nicht im PATH (weder `godot` noch `godot4`; keine Scoop/Chocolatey/winget-Installation, keine Datei in typischen Pfaden). | 2026-08-12 | Godot 4.x installieren und in den PATH aufnehmen (`godot --version` muss eine Version liefern). Danach AP-7.1 sowie die von Godot abhängigen APs der Phase 7 (AP-7.3 bis AP-7.11) bearbeiten. |
