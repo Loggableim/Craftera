@@ -314,7 +314,7 @@
 | AP-12.4 | Planner (Architektur → Task Graph) | Task Graph erzeugt | Tasks mit Dependencies | ⏭️ |
 | AP-12.5 | Task-Modell (`id`, `title`, `agent`, `priority`, `dependencies`, `ownedResources`, `acceptanceCriteria`, `status`) | Task-Modell | Unit-Test | ✅ |
 | AP-12.6 | Task-Graph-Status (BACKLOG→READY→IN_PROGRESS→REVIEW→TESTING→DONE) | Status-Übergänge | Test | ✅ |
-| AP-12.7 | Worker-Agents (Gameplay, Scene, UI, Asset, Code, Test) | Worker führen Tasks aus | Tasks erledigt |
+| AP-12.7 | Worker-Agents (Gameplay, Scene, UI, Asset, Code, Test) | Worker führen Tasks aus | Tasks erledigt | ⏭️ |
 | AP-12.8 | Resource Ownership + Locks | Keine parallelen Konflikte | Test: Lock verhindert Konflikt |
 | AP-12.9 | Kanban im Studio (BACKLOG/READY/WORKING/REVIEW/TESTING/DONE) | Kanban zeigt echten Status | Status sichtbar |
 | AP-12.10 | AI Game Factory-Flow (Prompt → editierbares Game) | Prompt erzeugt Game | Game im Studio editierbar |
