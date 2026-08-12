@@ -308,7 +308,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-12.1 | GDD-Modell (`GDD.md` + `GDD.json`) | GDD speicherbar | GDD erzeugt |
+| AP-12.1 | GDD-Modell (`GDD.md` + `GDD.json`) | GDD speicherbar | GDD erzeugt | ✅ |
 | AP-12.2 | Game Director (Prompt → GDD) | Director erzeugt GDD | GDD sinnvoll |
 | AP-12.3 | Architect (GDD → Architektur) | Architektur erzeugt | Architektur konsistent |
 | AP-12.4 | Planner (Architektur → Task Graph) | Task Graph erzeugt | Tasks mit Dependencies |

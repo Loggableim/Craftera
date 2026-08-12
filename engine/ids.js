@@ -23,6 +23,7 @@ const VALID_TYPES = new Set([
   'comp', // Component
   'asset', // Asset
   'cmd', // Command
+  'gdd', // Game Design Document
 ]);
 
 /**
