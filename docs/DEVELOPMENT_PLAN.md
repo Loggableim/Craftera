@@ -375,7 +375,7 @@
 | AP-15.1 | RemoteExperienceRegistry (Interface-Implementierung) | Remote-Registry ersetzt lokal | Interface erfüllt | ✅ |
 | AP-15.2 | Auth-Service (Accounts, Sessions) | Login/Logout | Test | ✅ |
 | AP-15.3 | Creator Identity | Creator-Profil | Test | ✅ |
-| AP-15.4 | Package-Upload | Upload funktioniert | Datei hochgeladen |
+| AP-15.4 | Package-Upload | Upload funktioniert | Datei hochgeladen | ✅ |
 | AP-15.5 | Package-Download | Download funktioniert | Datei geladen |
 | AP-15.6 | List Experiences (remote) | Liste vom Server | Test |
 | AP-15.7 | Public/Private | Sichtbarkeit remote | Test |
