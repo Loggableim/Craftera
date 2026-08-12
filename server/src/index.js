@@ -15,11 +15,18 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 
+const { getDataDir } = require('./dataDir.js');
+const { ExperienceRepository } = require('../../platform/experiences/experienceRepository.js');
+const { createExperience } = require('../../engine/experience.js');
+
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
 
 // Wurzelverzeichnis der statischen Client-Dateien.
 const CLIENT_DIR = path.resolve(__dirname, '..', '..', 'client');
+
+// Experience-Repository auf dem Datenverzeichnis.
+const experienceRepo = new ExperienceRepository(getDataDir());
 
 // MIME-Types für die ausgelieferten Dateitypen.
 const MIME_TYPES = {
@@ -93,6 +100,53 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ method: req.method, received: payload }));
     });
+    return;
+  }
+
+  // REST-API: Experiences (AP-2.7).
+  if (req.url === '/api/experiences') {
+    if (req.method === 'GET') {
+      experienceRepo.list().then((experiences) => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(experiences));
+      }).catch((err) => {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      });
+      return;
+    }
+
+    if (req.method === 'POST') {
+      let body = '';
+      req.on('data', (chunk) => { body += chunk; });
+      req.on('end', () => {
+        let input;
+        try {
+          input = JSON.parse(body || '{}');
+        } catch {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Ungültiges JSON' }));
+          return;
+        }
+        try {
+          const experience = createExperience(input);
+          experienceRepo.save(experience).then(() => {
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(experience));
+          }).catch((err) => {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: err.message }));
+          });
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        }
+      });
+      return;
+    }
+
+    res.writeHead(405, { 'Content-Type': 'text/plain' });
+    res.end('Method Not Allowed');
     return;
   }
 

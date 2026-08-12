@@ -79,7 +79,7 @@
 | AP-2.4 | ExperienceRepository (JSON-Persistenz) | create/get/list/save funktionieren | Integrationstest: speichern+laden | ✅ |
 | AP-2.5 | Version-Repository (create/get/list) | Versionen pro Experience | Integrationstest | ✅ |
 | AP-2.6 | Datenverzeichnis-Konvention (`dataDir`, gitignored) | `.data/` nicht in Git | `git status` sauber | ✅ |
-| AP-2.7 | REST-Endpoints: `GET/POST /api/experiences` | API erstellt + listet Experiences | `curl`-Test |
+| AP-2.7 | REST-Endpoints: `GET/POST /api/experiences` | API erstellt + listet Experiences | `curl`-Test | ✅ |
 | AP-2.8 | Create-View an API anbinden | Formular erstellt echte Experience | Experience erscheint in Liste |
 
 **DoD Phase 2:** Lokale Experiences können erstellt, gespeichert und wieder geladen werden.
