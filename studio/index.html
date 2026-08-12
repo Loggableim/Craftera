@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Craftera Studio</title>
+  <link rel="stylesheet" href="/studio/studio.css">
+</head>
+<body>
+  <!-- Studio-Topbar -->
+  <header class="studio-topbar">
+    <div class="studio-brand">Craftera Studio</div>
+    <div class="studio-toolbar">
+      <button class="btn" type="button" disabled title="Play (AP-3.8)">▶ Play</button>
+      <button class="btn" type="button" disabled title="Stop (AP-3.8)">■ Stop</button>
+    </div>
+  </header>
+
+  <!-- 3-Spalten-Layout: Hierarchy / Viewport / Inspector -->
+  <main class="studio-layout">
+    <aside class="panel panel-left" id="hierarchy-panel">
+      <h2 class="panel-title">Hierarchy</h2>
+      <div class="panel-body" id="hierarchy-list">
+        <p class="empty-state">Keine Entities (AP-3.3).</p>
+      </div>
+    </aside>
+
+    <section class="panel panel-center" id="viewport-panel">
+      <h2 class="panel-title">Viewport</h2>
+      <div class="panel-body viewport-canvas" id="viewport-canvas">
+        <p class="empty-state">Canvas (AP-3.5).</p>
+      </div>
+    </section>
+
+    <aside class="panel panel-right" id="inspector-panel">
+      <h2 class="panel-title">Inspector</h2>
+      <div class="panel-body" id="inspector-body">
+        <p class="empty-state">Keine Auswahl (AP-3.4).</p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Bottom-Panels: Assets / Console / AI -->
+  <footer class="studio-bottom">
+    <div class="panel panel-bottom" id="assets-panel">
+      <h2 class="panel-title">Assets</h2>
+      <div class="panel-body" id="assets-list">
+        <p class="empty-state">Keine Assets (AP-3.6).</p>
+      </div>
+    </div>
+    <div class="panel panel-bottom" id="console-panel">
+      <h2 class="panel-title">Console</h2>
+      <div class="panel-body" id="console-list">
+        <p class="empty-state">Keine Logs (AP-3.7).</p>
+      </div>
+    </div>
+    <div class="panel panel-bottom" id="ai-panel">
+      <h2 class="panel-title">AI</h2>
+      <div class="panel-body" id="ai-body">
+        <p class="empty-state">AI-Panel (AP-3.9).</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

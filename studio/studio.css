@@ -1,0 +1,120 @@
+/* Craftera Studio — Layout (AP-3.1) */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #0f1115;
+  color: #e6e8ec;
+}
+
+/* Studio-Topbar */
+.studio-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: #1a1d24;
+  border-bottom: 1px solid #2a2e38;
+}
+
+.studio-brand {
+  font-weight: 700;
+  color: #fff;
+}
+
+.studio-toolbar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid #2a2e38;
+  border-radius: 6px;
+  background: transparent;
+  color: #aeb4bf;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 3-Spalten-Layout */
+.studio-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px 1fr 260px;
+  min-height: 0;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: #14161c;
+  border: 1px solid #2a2e38;
+}
+
+.panel-title {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #aeb4bf;
+  border-bottom: 1px solid #2a2e38;
+}
+
+.panel-body {
+  flex: 1;
+  padding: 0.75rem;
+  overflow: auto;
+  min-height: 0;
+}
+
+.panel-left {
+  border-left: none;
+}
+
+.panel-right {
+  border-right: none;
+}
+
+/* Viewport */
+.viewport-canvas {
+  background: #0b0d11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Bottom-Panels */
+.studio-bottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  height: 180px;
+  border-top: 1px solid #2a2e38;
+}
+
+.panel-bottom {
+  border-bottom: none;
+}
+
+.empty-state {
+  color: #6b7280;
+  font-style: italic;
+  margin: 0;
+}

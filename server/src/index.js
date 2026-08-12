@@ -24,6 +24,14 @@ const HOST = process.env.HOST || '127.0.0.1';
 
 // Wurzelverzeichnis der statischen Client-Dateien.
 const CLIENT_DIR = path.resolve(__dirname, '..', '..', 'client');
+// Wurzelverzeichnis des Studios.
+const STUDIO_DIR = path.resolve(__dirname, '..', '..', 'studio');
+
+// Statische Wurzelverzeichnisse: /studio/* → studio/, sonst → client/.
+const STATIC_ROOTS = [
+  { prefix: '/studio/', dir: STUDIO_DIR },
+  { prefix: '/', dir: CLIENT_DIR },
+];
 
 // Experience-Repository auf dem Datenverzeichnis.
 const experienceRepo = new ExperienceRepository(getDataDir());
@@ -46,21 +54,25 @@ const MIME_TYPES = {
 };
 
 /**
- * Liefert eine statische Datei aus `client/` aus.
- * Schützt vor Path-Traversal: aufgelöster Pfad muss innerhalb von CLIENT_DIR liegen.
+ * Liefert eine statische Datei aus dem passenden Wurzelverzeichnis aus.
+ * Schützt vor Path-Traversal: aufgelöster Pfad muss innerhalb des Roots liegen.
  */
 function serveStatic(req, res) {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
 
+  // Passendes Wurzelverzeichnis anhand des Präfixes wählen.
+  const root = STATIC_ROOTS.find((r) => urlPath.startsWith(r.prefix)) || STATIC_ROOTS[1];
+  let relPath = urlPath.slice(root.prefix.length - 1); // führenden '/' behalten
+
   // Verzeichnis-Anfragen auf index.html mappen.
-  if (urlPath === '/' || urlPath.endsWith('/')) {
-    urlPath = path.join(urlPath, 'index.html');
+  if (relPath === '/' || relPath.endsWith('/')) {
+    relPath = path.join(relPath, 'index.html');
   }
 
-  const filePath = path.resolve(CLIENT_DIR, '.' + urlPath);
+  const filePath = path.resolve(root.dir, '.' + relPath);
 
-  // Path-Traversal-Schutz: Datei muss innerhalb von CLIENT_DIR liegen.
-  if (filePath !== CLIENT_DIR && !filePath.startsWith(CLIENT_DIR + path.sep)) {
+  // Path-Traversal-Schutz: Datei muss innerhalb des Roots liegen.
+  if (filePath !== root.dir && !filePath.startsWith(root.dir + path.sep)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
     res.end('Forbidden');
     return;
