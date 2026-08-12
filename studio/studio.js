@@ -349,6 +349,53 @@
   }
 
   /**
+   * Multi-Select (AP-6.8).
+   * Setzt eine Auswahl von mehreren Entities (rendert den Inspector mit
+   * der zuletzt ausgewählten).
+   * @param {object[]} entities - Ausgewählte Entities.
+   */
+  function selectEntities(entities) {
+    if (!Array.isArray(entities)) {
+      throw new Error('selectEntities: erwartet ein Array');
+    }
+    if (entities.length > 0) {
+      renderInspector(entities[entities.length - 1]);
+    } else {
+      renderInspector(null);
+    }
+    return entities;
+  }
+
+  /**
+   * Box-Select (AP-6.8).
+   * Findet alle Entities, deren Sprite-Bounding-Box die Auswahl-Box schneidet.
+   * @param {object[]} entities - Alle Entities.
+   * @param {object} rect - { x, y, width, height } der Auswahl-Box.
+   * @returns {object[]} Getroffene Entities.
+   */
+  function boxSelect(entities, rect) {
+    if (!rect || rect.width === undefined || rect.height === undefined) {
+      throw new Error('boxSelect: rect benötigt x, y, width, height');
+    }
+    const x1 = Math.min(rect.x, rect.x + rect.width);
+    const x2 = Math.max(rect.x, rect.x + rect.width);
+    const y1 = Math.min(rect.y, rect.y + rect.height);
+    const y2 = Math.max(rect.y, rect.y + rect.height);
+
+    return entities.filter((entity) => {
+      const t = entity.transform || { x: 0, y: 0, scale: 1, rotation: 0 };
+      const size = 40 * (t.scale || 1);
+      const half = size / 2;
+      const ex1 = t.x - half;
+      const ex2 = t.x + half;
+      const ey1 = t.y - half;
+      const ey2 = t.y + half;
+      // AABB-Schnitt.
+      return ex1 <= x2 && ex2 >= x1 && ey1 <= y2 && ey2 >= y1;
+    });
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -581,6 +628,6 @@
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
-    setZoom, panViewport,
+    setZoom, panViewport, selectEntities, boxSelect,
   };
 })();
