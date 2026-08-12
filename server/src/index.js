@@ -80,6 +80,22 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  // Test-Endpoint für den API-Client-Helper (AP-1.11).
+  // Echo-Endpoint: akzeptiert GET/POST/PUT und gibt die Anfrage zurück.
+  if (req.url === '/api/test' && (req.method === 'GET' || req.method === 'POST' || req.method === 'PUT')) {
+    let body = '';
+    req.on('data', (chunk) => { body += chunk; });
+    req.on('end', () => {
+      let payload = null;
+      if (body) {
+        try { payload = JSON.parse(body); } catch { payload = body; }
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ method: req.method, received: payload }));
+    });
+    return;
+  }
+
   // Statische Dateien aus `client/` ausliefern.
   if (req.method === 'GET' || req.method === 'HEAD') {
     serveStatic(req, res);
