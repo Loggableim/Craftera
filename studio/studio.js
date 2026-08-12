@@ -688,10 +688,10 @@
   }
 
   /**
-   * Play-Toolbar (AP-3.8).
+   * Play-Toolbar (AP-3.8, AP-7.9).
    * Play/Stop/Pause-Buttons mit echtem Zustand (stopped/playing/paused).
-   * Die Runtime selbst folgt in Phase 7; hier wird der Modus real umgeschaltet
-   * und in der Console geloggt.
+   * Play startet die Runtime (Godot) real über den Server-Endpoint
+   * POST /api/experiences/:id/play (AP-7.9).
    */
   let playState = 'stopped';
 
@@ -714,6 +714,23 @@
     log(`Play-Modus: ${state}`, 'info');
   }
 
+  /** Startet die Runtime (Godot) real über den Server. */
+  async function startRuntime() {
+    const experienceId = getQueryParam('experienceId');
+    if (!experienceId) {
+      log('Keine Experience geladen — Play nicht möglich.', 'error');
+      return;
+    }
+    setPlayState('playing');
+    try {
+      const result = await window.craftera.api.post(`/api/experiences/${experienceId}/play`);
+      log(`Runtime gestartet: ${result.mainScene} (Exit ${result.exitCode})`, 'info');
+    } catch (err) {
+      log(`Runtime-Start fehlgeschlagen: ${err.message}`, 'error');
+      setPlayState('stopped');
+    }
+  }
+
   /** Initialisiert die Play-Toolbar-Buttons. */
   function initPlayToolbar() {
     const play = document.getElementById('play-btn');
@@ -721,7 +738,7 @@
     const stop = document.getElementById('stop-btn');
     if (!play || !pause || !stop) return;
 
-    play.addEventListener('click', () => setPlayState('playing'));
+    play.addEventListener('click', startRuntime);
     pause.addEventListener('click', () => setPlayState('paused'));
     stop.addEventListener('click', () => setPlayState('stopped'));
 

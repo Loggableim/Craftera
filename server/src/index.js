@@ -22,6 +22,7 @@ const { saveProject, loadProject } = require('../../engine/serialization.js');
 const { createProject } = require('../../engine/project.js');
 const { LocalExperienceRegistry } = require('../../platform/registry/localExperienceRegistry.js');
 const { TaskRepository } = require('../../platform/tasks/taskRepository.js');
+const playService = require('../../runtime/godot/playService.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -232,10 +233,7 @@ const server = http.createServer((req, res) => {
     const handler = {
       publish: () => registry.publish(experienceId),
       install: () => registry.install(experienceId),
-      play: () => {
-        // Runtime (Godot) ist nicht installiert (AP-10.8 übersprungen).
-        return Promise.reject(new Error('Runtime nicht verfügbar (Godot nicht installiert)'));
-      },
+      play: () => playService.play(getDataDir(), experienceId),
     }[action];
 
     handler().then((result) => {
