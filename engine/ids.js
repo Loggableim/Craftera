@@ -24,6 +24,7 @@ const VALID_TYPES = new Set([
   'asset', // Asset
   'cmd', // Command
   'gdd', // Game Design Document
+  'task', // Task (AI Game Factory)
 ]);
 
 /**
