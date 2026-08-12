@@ -193,6 +193,51 @@ body {
   font-size: 0.85rem;
 }
 
+/* --- Kanban (AP-12.9) --- */
+.kanban-board {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+.kanban-column {
+  flex: 0 0 180px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+.kanban-column-header {
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.kanban-card {
+  background: var(--bg-elevated, #fff);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.kanban-card-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.kanban-card-agent {
+  font-size: 0.7rem;
+  color: var(--text-muted, #888);
+  text-transform: uppercase;
+}
+.kanban-empty {
+  color: var(--text-muted, #888);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 /* --- Game Page (AP-11.1) --- */
 .game-page-card {
   max-width: 480px;

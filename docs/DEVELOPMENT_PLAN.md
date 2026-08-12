@@ -316,7 +316,7 @@
 | AP-12.6 | Task-Graph-Status (BACKLOG→READY→IN_PROGRESS→REVIEW→TESTING→DONE) | Status-Übergänge | Test | ✅ |
 | AP-12.7 | Worker-Agents (Gameplay, Scene, UI, Asset, Code, Test) | Worker führen Tasks aus | Tasks erledigt | ⏭️ |
 | AP-12.8 | Resource Ownership + Locks | Keine parallelen Konflikte | Test: Lock verhindert Konflikt | ✅ |
-| AP-12.9 | Kanban im Studio (BACKLOG/READY/WORKING/REVIEW/TESTING/DONE) | Kanban zeigt echten Status | Status sichtbar |
+| AP-12.9 | Kanban im Studio (BACKLOG/READY/WORKING/REVIEW/TESTING/DONE) | Kanban zeigt echten Status | Status sichtbar | ✅ |
 | AP-12.10 | AI Game Factory-Flow (Prompt → editierbares Game) | Prompt erzeugt Game | Game im Studio editierbar |
 | AP-12.11 | Ergebnis im Studio öffnen (keine Black Box) | Game editierbar | Studio zeigt Game |
 

@@ -21,6 +21,7 @@ const { createExperience } = require('../../engine/experience.js');
 const { saveProject, loadProject } = require('../../engine/serialization.js');
 const { createProject } = require('../../engine/project.js');
 const { LocalExperienceRegistry } = require('../../platform/registry/localExperienceRegistry.js');
+const { TaskRepository } = require('../../platform/tasks/taskRepository.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -40,6 +41,8 @@ const STATIC_ROOTS = [
 const experienceRepo = new ExperienceRepository(getDataDir());
 // Lokale Experience-Registry (AP-10.9).
 const registry = new LocalExperienceRegistry(getDataDir());
+// Task-Repository (AP-12.9).
+const taskRepo = new TaskRepository(getDataDir());
 
 // MIME-Types für die ausgelieferten Dateitypen.
 const MIME_TYPES = {
@@ -242,6 +245,82 @@ const server = http.createServer((req, res) => {
       res.writeHead(400, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ error: err.message }));
     });
+    return;
+  }
+
+  // REST-API: Tasks einer Experience (AP-12.9).
+  // GET  /api/experiences/:id/tasks           → Liste
+  // POST /api/experiences/:id/tasks           → Task erstellen
+  // PUT  /api/experiences/:id/tasks/:taskId/status → Status setzen
+  const tasksMatch = req.url.match(/^\/api\/experiences\/([^/]+)\/tasks(?:\/([^/]+)\/status)?$/);
+  if (tasksMatch) {
+    const experienceId = decodeURIComponent(tasksMatch[1]);
+    const taskId = tasksMatch[2] ? decodeURIComponent(tasksMatch[2]) : null;
+
+    if (req.method === 'GET' && !taskId) {
+      taskRepo.list(experienceId).then((tasks) => {
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify(tasks));
+      }).catch((err) => {
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: err.message }));
+      });
+      return;
+    }
+
+    if (req.method === 'POST' && !taskId) {
+      let body = '';
+      req.on('data', (chunk) => { body += chunk; });
+      req.on('end', () => {
+        let input;
+        try {
+          input = JSON.parse(body || '{}');
+        } catch {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Ungültiges JSON' }));
+          return;
+        }
+        try {
+          taskRepo.create(experienceId, input).then((task) => {
+            res.writeHead(201, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify(task));
+          }).catch((err) => {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: err.message }));
+          });
+        } catch (err) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        }
+      });
+      return;
+    }
+
+    if (req.method === 'PUT' && taskId) {
+      let body = '';
+      req.on('data', (chunk) => { body += chunk; });
+      req.on('end', () => {
+        let input;
+        try {
+          input = JSON.parse(body || '{}');
+        } catch {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Ungültiges JSON' }));
+          return;
+        }
+        taskRepo.setStatus(experienceId, taskId, input.status).then((task) => {
+          res.writeHead(200, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify(task));
+        }).catch((err) => {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: err.message }));
+        });
+      });
+      return;
+    }
+
+    res.writeHead(405, { 'Content-Type': 'text/plain' });
+    res.end('Method Not Allowed');
     return;
   }
 
