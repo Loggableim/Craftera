@@ -587,6 +587,42 @@
   }
 
   /**
+   * Asset-Import (AP-6.15).
+   * Fügt ein Asset (z.B. PNG als Sprite) zum Projekt hinzu und erzeugt eine
+   * Entity mit Sprite-Component, die das Asset referenziert.
+   * @param {object} project - GameProject-Objekt.
+   * @param {object} input - { name, type, dataUrl? }
+   * @returns {object} { asset, entity }.
+   */
+  function importAsset(project, input) {
+    if (!project || !Array.isArray(project.assets) || !Array.isArray(project.entities)) {
+      throw new Error('importAsset: Projekt benötigt assets- und entities-Arrays');
+    }
+    const name = String(input.name || '').trim();
+    if (!name) throw new Error('importAsset: "name" ist erforderlich');
+
+    const asset = {
+      assetId: 'asset_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      name,
+      type: String(input.type || 'sprite'),
+      dataUrl: String(input.dataUrl || ''),
+    };
+    project.assets.push(asset);
+
+    const entity = {
+      entityId: 'ent_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+      name,
+      sceneId: '',
+      parentId: '',
+      transform: { x: 0, y: 0, scale: 1, rotation: 0 },
+      components: [{ componentId: 'comp_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8), type: 'Sprite', props: { assetId: asset.assetId } }],
+    };
+    project.entities.push(entity);
+
+    return { asset, entity };
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -822,5 +858,6 @@
     setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
     reparentEntity, getChildren, renameEntity, setEntityLocked, setEntityVisible,
     setTransformValue, setComponentProp, addComponentToEntity, removeComponentFromEntity,
+    importAsset,
   };
 })();
