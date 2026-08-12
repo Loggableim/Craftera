@@ -507,6 +507,46 @@
   }
 
   /**
+   * Inspector-Edit: Transform (AP-6.13).
+   * Setzt einen Transform-Wert (x/y/scale/rotation) einer Entity.
+   * @param {object} entity - Entity-Objekt.
+   * @param {string} key - Transform-Schlüssel (x/y/scale/rotation).
+   * @param {number} value - Neuer Wert.
+   * @returns {object} Der aktualisierte Transform.
+   */
+  function setTransformValue(entity, key, value) {
+    if (!entity || !entity.transform) {
+      throw new Error('setTransformValue: Entity benötigt ein transform-Objekt');
+    }
+    if (!['x', 'y', 'scale', 'rotation'].includes(key)) {
+      throw new Error(`setTransformValue: Unbekannter Transform-Schlüssel "${key}"`);
+    }
+    entity.transform[key] = Number(value);
+    return entity.transform;
+  }
+
+  /**
+   * Inspector-Edit: Component-Prop (AP-6.13).
+   * Setzt eine Property einer Component einer Entity.
+   * @param {object} entity - Entity-Objekt.
+   * @param {string} componentId - ID der Component.
+   * @param {string} prop - Property-Name.
+   * @param {*} value - Neuer Wert.
+   * @returns {object} Die aktualisierte Component.
+   */
+  function setComponentProp(entity, componentId, prop, value) {
+    if (!entity || !Array.isArray(entity.components)) {
+      throw new Error('setComponentProp: Entity benötigt ein components-Array');
+    }
+    const component = entity.components.find((c) => c.componentId === componentId);
+    if (!component) {
+      throw new Error(`setComponentProp: Component "${componentId}" nicht gefunden`);
+    }
+    component.props[prop] = value;
+    return component;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -741,5 +781,6 @@
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
     setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
     reparentEntity, getChildren, renameEntity, setEntityLocked, setEntityVisible,
+    setTransformValue, setComponentProp,
   };
 })();
