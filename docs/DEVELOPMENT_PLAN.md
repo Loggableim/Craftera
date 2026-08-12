@@ -380,7 +380,7 @@
 | AP-15.6 | List Experiences (remote) | Liste vom Server | Test | ✅ |
 | AP-15.7 | Public/Private | Sichtbarkeit remote | Test | ✅ |
 | AP-15.8 | Search (remote) | Suche remote | Test | ✅ |
-| AP-15.9 | Package Storage (objektbasiert/CDN vorbereiten) | Storage abstrakt | Doku |
+| AP-15.9 | Package Storage (objektbasiert/CDN vorbereiten) | Storage abstrakt | Doku | ✅ |
 
 **DoD Phase 15:** Online-Plattform-Prototyp funktioniert.
 **Abhängigkeiten:** Phase 10 (Registry-Interface), Phase 9 (Packaging).

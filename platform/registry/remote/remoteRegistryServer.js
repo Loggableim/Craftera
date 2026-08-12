@@ -18,11 +18,10 @@
  */
 
 const http = require('node:http');
-const fs = require('node:fs/promises');
-const path = require('node:path');
 const { ExperienceRepository } = require('../../experiences/experienceRepository.js');
 const { createExperience } = require('../../../engine/experience.js');
 const { LocalExperienceRegistry } = require('../localExperienceRegistry.js');
+const { LocalPackageStorage } = require('../../storage/localPackageStorage.js');
 
 class RemoteRegistryServer {
   /**
@@ -32,6 +31,8 @@ class RemoteRegistryServer {
     this.dataDir = dataDir;
     this.experienceRepo = new ExperienceRepository(dataDir);
     this.registry = new LocalExperienceRegistry(dataDir);
+    // Package-Storage über die abstrakte Schnittstelle (AP-15.9).
+    this.packageStorage = new LocalPackageStorage(dataDir);
   }
 
   /** Startet den HTTP-Server. */
@@ -102,27 +103,17 @@ class RemoteRegistryServer {
         if (!body || !body.packageId || !Array.isArray(body.files)) {
           return this._json(res, 400, { error: 'Ungültiges Package-Archiv' });
         }
-        const uploadDir = path.join(this.dataDir, 'uploads');
-        await fs.mkdir(uploadDir, { recursive: true });
-        const filePath = path.join(uploadDir, `${body.packageId}.json`);
-        const tmpPath = `${filePath}.tmp`;
-        await fs.writeFile(tmpPath, JSON.stringify(body, null, 2), 'utf8');
-        await fs.rename(tmpPath, filePath);
-        return this._json(res, 201, { packageId: body.packageId, uploaded: true });
+        const result = await this.packageStorage.put(body.packageId, body);
+        return this._json(res, 201, result);
       }
 
       // GET /api/packages/:id — Package herunterladen (AP-15.5).
       const pkgMatch = urlPath.match(/^\/api\/packages\/([^/]+)$/);
       if (pkgMatch && req.method === 'GET') {
         const packageId = decodeURIComponent(pkgMatch[1]);
-        const filePath = path.join(this.dataDir, 'uploads', `${packageId}.json`);
-        try {
-          const raw = await fs.readFile(filePath, 'utf8');
-          return this._json(res, 200, JSON.parse(raw));
-        } catch (err) {
-          if (err.code === 'ENOENT') return this._json(res, 404, { error: 'Package nicht gefunden' });
-          throw err;
-        }
+        const archive = await this.packageStorage.get(packageId);
+        if (!archive) return this._json(res, 404, { error: 'Package nicht gefunden' });
+        return this._json(res, 200, archive);
       }
 
       // Aktionen: publish/install, visibility, delete.
