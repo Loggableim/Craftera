@@ -292,9 +292,9 @@
 | AP-11.4 | Platform API (`getCurrentUser`, `saveData`, `loadData`) | API funktioniert | Save/Load-Test | ✅ |
 | AP-11.5 | Save-Isolation (`userdata/<experience-id>/`) | Saves pro Experience getrennt | Test: kein Cross-Access | ✅ |
 | AP-11.6 | Sandbox-Grundlage (Capability-Modell, Default DENY) | Permissions geprüft | Test: nicht erlaubte Capability blockiert | ✅ |
-| AP-11.7 | Play-Viewport (Experience rendern) | Game läuft im Client | Game spielbar |
-| AP-11.8 | Library: Install + Play | Library zeigt installierte, Play startet | Loop funktioniert |
-| AP-11.9 | Discover → Game Page → Play (kompletter Loop) | End-to-End | Creator→Publish→Discover→Play |
+| AP-11.7 | Play-Viewport (Experience rendern) | Game läuft im Client | Game spielbar | ⏭️ |
+| AP-11.8 | Library: Install + Play | Library zeigt installierte, Play startet | Loop funktioniert | ⏭️ |
+| AP-11.9 | Discover → Game Page → Play (kompletter Loop) | End-to-End | Creator→Publish→Discover→Play | ⏭️ |
 
 **DoD Phase 11:** Veröffentlichte Experience wird unabhängig vom Studio gestartet.
 **Abhängigkeiten:** Phase 10 (Registry), Phase 7 (Runtime).
