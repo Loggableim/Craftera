@@ -170,7 +170,17 @@ class LocalExperienceRegistry {
 
   /** Entfernt Experience. (AP-10.7) */
   async remove(experienceId) {
-    throw new Error('LocalExperienceRegistry.remove ist nicht implementiert (AP-10.7)');
+    // Installierten Bereich entfernen.
+    await fs.rm(path.join(this.dataDir, 'installed', experienceId), { recursive: true, force: true });
+    // Package entfernen.
+    await fs.rm(path.join(this.dataDir, 'packages', experienceId), { recursive: true, force: true });
+
+    // Registry-Eintrag entfernen.
+    const registry = await this._load();
+    registry.experiences = registry.experiences.filter((e) => e.experienceId !== experienceId);
+    await this._save(registry);
+
+    return { experienceId, removed: true };
   }
 
   /** Startet installierte Experience. (AP-10.8) */

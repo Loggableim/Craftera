@@ -52,6 +52,5 @@ test('search filtert nach Tag', async () => {
 test('noch nicht implementierte Methoden werfen "nicht implementiert"', async () => {
   const dir = await makeTempDataDir();
   const registry = new LocalExperienceRegistry(dir);
-  await assert.rejects(() => registry.remove('exp_1'), /nicht implementiert/);
   await assert.rejects(() => registry.launch('exp_1'), /nicht implementiert/);
 });
