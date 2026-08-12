@@ -24,6 +24,7 @@ const { LocalExperienceRegistry } = require('../../platform/registry/localExperi
 const { TaskRepository } = require('../../platform/tasks/taskRepository.js');
 const playService = require('../../runtime/godot/playService.js');
 const { RuntimeSession } = require('../../runtime/godot/runtimeSession.js');
+const { testAsPublished } = require('../../runtime/godot/testAsPublished.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -278,6 +279,20 @@ const server = http.createServer((req, res) => {
     }[mode];
 
     handler().then((result) => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    }).catch((err) => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    });
+    return;
+  }
+
+  // REST-API: Test as Published (AP-7.11).
+  const testPublishedMatch = req.url.match(/^\/api\/experiences\/([^/]+)\/test-published$/);
+  if (testPublishedMatch && req.method === 'POST') {
+    const experienceId = decodeURIComponent(testPublishedMatch[1]);
+    testAsPublished(getDataDir(), experienceId).then((result) => {
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(result));
     }).catch((err) => {

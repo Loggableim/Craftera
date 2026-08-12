@@ -14,7 +14,6 @@
 
 | AP | Grund | Datum | Nötig für Bearbeitung |
 |----|-------|-------|------------------------|
-| AP-7.11 | Test as Published (simuliert Package) benötigt eine installierte Godot-Runtime zur realen Verifikation ("Package läuft"). Ohne Godot (AP-7.1 übersprungen) ist keine reale Verifikation möglich. | 2026-08-12 | Godot 4.x installieren und in den PATH aufnehmen. Danach AP-7.11 bearbeiten. |
 | AP-8.2 … AP-8.6 | Die Provider-APs der Phase 8 benötigen eine externe Abhängigkeit zur realen Verifikation: API-Key (OpenAI/Anthropic/OpenRouter/OpenAI-kompatibel) bzw. einen laufenden lokalen Ollama-Server. Keine Keys gesetzt, kein Ollama-Server erreichbar (localhost:11434). | 2026-08-12 | API-Key in der Umgebung setzen (OPENAI_API_KEY/ANTHROPIC_API_KEY/OPENROUTER_API_KEY) bzw. lokalen Ollama-Server starten. Danach AP-8.2 bis AP-8.6 bearbeiten. |
 | AP-10.8 | `launch(experienceId)` startet die installierte Experience über die Runtime. Die Runtime ist Godot, das nicht installiert ist (AP-7.1 übersprungen). "Runtime startet" ist ohne Godot nicht real verifizierbar. | 2026-08-12 | Godot 4.x installieren und in den PATH aufnehmen. Danach AP-10.8 bearbeiten. |
 | AP-11.7 … AP-11.9 | Die Play-/Viewport-APs der Phase 11 benötigen die Runtime zum realen Rendern/Spielen ("Game läuft im Client", "Play startet", "Play"). Ohne Godot (AP-7.1 übersprungen) ist kein Game im Client spielbar. | 2026-08-12 | Godot 4.x installieren und in den PATH aufnehmen. Danach AP-11.7 bis AP-11.9 bearbeiten. |
