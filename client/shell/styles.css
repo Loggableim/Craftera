@@ -177,3 +177,40 @@ body {
   font-size: 0.9rem;
   color: #aeb4bf;
 }
+
+/* Settings-View */
+.settings-section {
+  max-width: 480px;
+}
+
+.settings-section h3 {
+  margin: 0 0 0.25rem;
+  color: #fff;
+}
+
+.settings-hint {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.provider-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.4rem;
+  background: #1a1d24;
+  border: 1px solid #2a2e38;
+  border-radius: 6px;
+}
+
+.provider-name {
+  color: #e6e8ec;
+  font-size: 0.95rem;
+}
+
+.provider-status {
+  color: #6b7280;
+  font-size: 0.85rem;
+}

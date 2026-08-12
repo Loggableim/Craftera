@@ -67,7 +67,11 @@
     </section>
     <section class="view" data-view="settings">
       <h2>Settings</h2>
-      <p>BYOK-Provider-Konfiguration (AP-1.9).</p>
+      <div class="settings-section">
+        <h3>BYOK-Provider</h3>
+        <p class="settings-hint">Bring Your Own Key — Konfiguration folgt in AP-8.7.</p>
+        <div id="settings-providers"></div>
+      </div>
     </section>
   </main>
 
@@ -76,12 +80,14 @@
   <script src="/discover/discover.js"></script>
   <script src="/library/library.js"></script>
   <script src="/creator_hub/create.js"></script>
+  <script src="/settings/settings.js"></script>
   <script>
     // Views beim Laden rendern (nachdem die jeweiligen Skripte geladen sind).
     window.craftera.renderHome();
     window.craftera.renderDiscover();
     window.craftera.renderLibrary();
     window.craftera.renderCreate();
+    window.craftera.renderSettings();
   </script>
 </body>
 </html>
