@@ -194,15 +194,15 @@
 |----|--------------|-----|--------------|
 | AP-7.1 | Godot installieren + im PATH verfügbar machen | `godot --version` liefert Version | Terminal-Check | ⏭️ |
 | AP-7.2 | RuntimeAdapter-Interface definieren | Interface abstrakt | Code-Review | ✅ |
-| AP-7.3 | GodotAdapter: GameProject → Godot-Projekt | Projekt wird nach Godot übersetzt | Godot öffnet Projekt |
-| AP-7.4 | SceneCompiler: Scene → PackedScene | Scene kompiliert | Godot lädt Scene |
-| AP-7.5 | ResourceCompiler: Assets → Godot-Resources | Assets importiert | Godot zeigt Assets |
-| AP-7.6 | ScriptBridge: Components → GDScript | Components als GDScript | Script läuft |
-| AP-7.7 | InputBridge: InputActions → InputMap | Input gemappt | Tastatur steuert |
-| AP-7.8 | ProjectBuilder: GameProject → lauffähiges Godot-Projekt | Build erzeugt Projekt | Godot startet |
-| AP-7.9 | Play-Modus im Studio (Play Current Scene) | Studio startet Runtime | Szene läuft real |
-| AP-7.10 | Play-Modi: Pause, Stop, Restart | Modi funktionieren | Buttons wirken |
-| AP-7.11 | Test as Published (simuliert Package) | Modus startet Package | Package läuft |
+| AP-7.3 | GodotAdapter: GameProject → Godot-Projekt | Projekt wird nach Godot übersetzt | Godot öffnet Projekt | ⏭️ |
+| AP-7.4 | SceneCompiler: Scene → PackedScene | Scene kompiliert | Godot lädt Scene | ⏭️ |
+| AP-7.5 | ResourceCompiler: Assets → Godot-Resources | Assets importiert | Godot zeigt Assets | ⏭️ |
+| AP-7.6 | ScriptBridge: Components → GDScript | Components als GDScript | Script läuft | ⏭️ |
+| AP-7.7 | InputBridge: InputActions → InputMap | Input gemappt | Tastatur steuert | ⏭️ |
+| AP-7.8 | ProjectBuilder: GameProject → lauffähiges Godot-Projekt | Build erzeugt Projekt | Godot startet | ⏭️ |
+| AP-7.9 | Play-Modus im Studio (Play Current Scene) | Studio startet Runtime | Szene läuft real | ⏭️ |
+| AP-7.10 | Play-Modi: Pause, Stop, Restart | Modi funktionieren | Buttons wirken | ⏭️ |
+| AP-7.11 | Test as Published (simuliert Package) | Modus startet Package | Package läuft | ⏭️ |
 
 **DoD Phase 7:** Studio-Szene läuft real in Godot.
 **Abhängigkeiten:** Phase 6 (WYSIWYG), Godot-Installation (AP-7.1).
