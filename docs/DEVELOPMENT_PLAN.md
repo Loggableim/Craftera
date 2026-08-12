@@ -196,7 +196,7 @@
 | AP-7.2 | RuntimeAdapter-Interface definieren | Interface abstrakt | Code-Review | ✅ |
 | AP-7.3 | GodotAdapter: GameProject → Godot-Projekt | Projekt wird nach Godot übersetzt | Godot öffnet Projekt | ✅ |
 | AP-7.4 | SceneCompiler: Scene → PackedScene | Scene kompiliert | Godot lädt Scene | ✅ |
-| AP-7.5 | ResourceCompiler: Assets → Godot-Resources | Assets importiert | Godot zeigt Assets | ⏭️ |
+| AP-7.5 | ResourceCompiler: Assets → Godot-Resources | Assets importiert | Godot zeigt Assets | ✅ |
 | AP-7.6 | ScriptBridge: Components → GDScript | Components als GDScript | Script läuft | ⏭️ |
 | AP-7.7 | InputBridge: InputActions → InputMap | Input gemappt | Tastatur steuert | ⏭️ |
 | AP-7.8 | ProjectBuilder: GameProject → lauffähiges Godot-Projekt | Build erzeugt Projekt | Godot startet | ⏭️ |
