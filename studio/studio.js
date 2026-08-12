@@ -435,6 +435,39 @@
   }
 
   /**
+   * Parenting + Layering (AP-6.11).
+   * Setzt die parentId einer Entity (Reparent). newParentId '' = Wurzel.
+   * @param {object} project - GameProject-Objekt.
+   * @param {string} entityId - ID der Entity.
+   * @param {string} newParentId - Neue parentId ('' für Wurzel).
+   * @returns {object} Die aktualisierte Entity.
+   */
+  function reparentEntity(project, entityId, newParentId) {
+    if (!project || !Array.isArray(project.entities)) {
+      throw new Error('reparentEntity: Projekt benötigt ein entities-Array');
+    }
+    const entity = project.entities.find((e) => e.entityId === entityId);
+    if (!entity) {
+      throw new Error(`reparentEntity: Entity "${entityId}" nicht gefunden`);
+    }
+    entity.parentId = String(newParentId || '');
+    return entity;
+  }
+
+  /**
+   * Layering (AP-6.11): liefert die direkten Kinder einer Entity.
+   * @param {object} project - GameProject-Objekt.
+   * @param {string} parentId - parentId, deren Kinder gesucht werden.
+   * @returns {object[]} Direkte Kinder.
+   */
+  function getChildren(project, parentId) {
+    if (!project || !Array.isArray(project.entities)) {
+      throw new Error('getChildren: Projekt benötigt ein entities-Array');
+    }
+    return project.entities.filter((e) => e.parentId === parentId);
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -668,5 +701,6 @@
     initUndoRedo, setHistory, updateUndoRedoButtons,
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
     setZoom, panViewport, selectEntities, boxSelect, duplicateEntity, deleteEntity,
+    reparentEntity, getChildren,
   };
 })();

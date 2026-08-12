@@ -172,7 +172,7 @@
 | AP-6.8 | Multi-Select + Box-Select | Mehrere Entities wählbar | Box-Selektion | ✅ |
 | AP-6.9 | Copy/Paste + Duplicate | Entities duplizierbar | Duplikat erscheint | ✅ |
 | AP-6.10 | Delete | Entity löschbar | Entity verschwindet | ✅ |
-| AP-6.11 | Parenting + Layering | Entities hierarchisch | Reparent funktioniert |
+| AP-6.11 | Parenting + Layering | Entities hierarchisch | Reparent funktioniert | ✅ |
 | AP-6.12 | Hierarchy-Interaktion (Rename, Lock, Visibility) | Hierarchy steuert Entities | Rename/Lock wirkt |
 | AP-6.13 | Inspector-Edit (Transform + Component-Props) | Werte im Inspector editierbar | Änderung wirkt im Viewport |
 | AP-6.14 | Component-Add/Remove im Inspector | Components hinzufügbar | Component erscheint |
