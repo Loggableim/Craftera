@@ -332,12 +332,12 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-13.1 | Runtime-Log-Erfassung | Logs werden gesammelt | Log-Datei |
-| AP-13.2 | Screenshot-Erfassung | Screenshots aufgenommen | Bilddatei |
-| AP-13.3 | Automatische Tests (Playtest-Skripte) | Tests laufen | Test-Ergebnis |
-| AP-13.4 | Fehler-Erkennung (Crash, Fehler im Log) | Fehler erkannt | Fehler gemeldet |
-| AP-13.5 | Repair-Agent (Fehler → Fix-Commands) | AI repariert Fehler | Fehler behoben |
-| AP-13.6 | Validation-Pipeline (vor Publish) | Pipeline prüft | Fehler blockieren Publish |
+| AP-13.1 | Runtime-Log-Erfassung | Logs werden gesammelt | Log-Datei | ⏭️ |
+| AP-13.2 | Screenshot-Erfassung | Screenshots aufgenommen | Bilddatei | ⏭️ |
+| AP-13.3 | Automatische Tests (Playtest-Skripte) | Tests laufen | Test-Ergebnis | ⏭️ |
+| AP-13.4 | Fehler-Erkennung (Crash, Fehler im Log) | Fehler erkannt | Fehler gemeldet | ⏭️ |
+| AP-13.5 | Repair-Agent (Fehler → Fix-Commands) | AI repariert Fehler | Fehler behoben | ⏭️ |
+| AP-13.6 | Validation-Pipeline (vor Publish) | Pipeline prüft | Fehler blockieren Publish | ⏭️ |
 
 **DoD Phase 13:** Fehler werden erkannt und repariert.
 **Abhängigkeiten:** Phase 12 (AI), Phase 7 (Runtime).
@@ -351,14 +351,14 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-14.1 | Android-SDK/Toolchain prüfen/installieren | `flutter doctor` / SDK ok | Tool-Check |
-| AP-14.2 | Touch-Input (Multi-Touch) | Touch steuert Game | Test auf Gerät |
-| AP-14.3 | Portrait/Landscape + Safe Areas | Orientierung korrekt | Test |
-| AP-14.4 | UI-Scaling + Mobile Preview | UI skaliert | Test |
-| AP-14.5 | Performance-Profile | FPS akzeptabel | Messung |
-| AP-14.6 | Experience im Android-Client | Game läuft auf Android | Test |
-| AP-14.7 | Standalone-Export (APK/AAB) | Export erzeugt APK | APK installierbar |
-| AP-14.8 | Web-Export (optional) | Web-Build erzeugt | Web läuft |
+| AP-14.1 | Android-SDK/Toolchain prüfen/installieren | `flutter doctor` / SDK ok | Tool-Check | ⏭️ |
+| AP-14.2 | Touch-Input (Multi-Touch) | Touch steuert Game | Test auf Gerät | ⏭️ |
+| AP-14.3 | Portrait/Landscape + Safe Areas | Orientierung korrekt | Test | ⏭️ |
+| AP-14.4 | UI-Scaling + Mobile Preview | UI skaliert | Test | ⏭️ |
+| AP-14.5 | Performance-Profile | FPS akzeptabel | Messung | ⏭️ |
+| AP-14.6 | Experience im Android-Client | Game läuft auf Android | Test | ⏭️ |
+| AP-14.7 | Standalone-Export (APK/AAB) | Export erzeugt APK | APK installierbar | ⏭️ |
+| AP-14.8 | Web-Export (optional) | Web-Build erzeugt | Web läuft | ⏭️ |
 
 **DoD Phase 14:** Experience läuft auf Android, Export möglich.
 **Abhängigkeiten:** Phase 11 (Platform Play), Phase 7 (Runtime).
