@@ -161,7 +161,11 @@ class LocalExperienceRegistry {
 
   /** Installiert neue Version. (AP-10.6) */
   async update(experienceId) {
-    throw new Error('LocalExperienceRegistry.update ist nicht implementiert (AP-10.6)');
+    // Neue Version publizieren (erhöht versionNumber, baut neues Package).
+    const published = await this.publish(experienceId);
+    // Installierten Bereich mit dem neuen Package ersetzen.
+    await this.install(experienceId);
+    return { experienceId, status: 'updated', versionId: published.versionId };
   }
 
   /** Entfernt Experience. (AP-10.7) */

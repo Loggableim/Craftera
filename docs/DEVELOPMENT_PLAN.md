@@ -267,7 +267,7 @@
 | AP-10.3 | `list()` | Alle Experiences | Liste korrekt | ✅ |
 | AP-10.4 | `search(query)` | Suche nach Name/Tag | Suche filtert | ✅ |
 | AP-10.5 | `install(experienceId)` | Kopiert Package in installierten Bereich | Installiert-Verzeichnis gefüllt | ✅ |
-| AP-10.6 | `update(experienceId)` | Neue Version installiert | Update wirkt |
+| AP-10.6 | `update(experienceId)` | Neue Version installiert | Update wirkt | ✅ |
 | AP-10.7 | `remove(experienceId)` | Experience entfernt | Entfernt |
 | AP-10.8 | `launch(experienceId)` | Startet installierte Experience | Runtime startet |
 | AP-10.9 | REST-Endpoints: publish/install/play | API funktioniert | `curl`-Test |
