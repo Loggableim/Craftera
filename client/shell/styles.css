@@ -193,6 +193,53 @@ body {
   font-size: 0.85rem;
 }
 
+/* --- Game Page (AP-11.1) --- */
+.game-page-card {
+  max-width: 480px;
+  padding: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.game-page-name {
+  margin: 0 0 0.25rem;
+  color: var(--text);
+}
+
+.game-page-creator,
+.game-page-version {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0.25rem 0;
+}
+
+.game-page-thumbnail {
+  font-size: 3rem;
+  margin: 0.5rem 0;
+}
+
+.game-page-description {
+  color: var(--text);
+  margin: 0.5rem 0;
+}
+
+.game-page-tags {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+}
+
+.game-page-tag {
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-muted);
+}
+
 /* --- Sektions-Überschriften --- */
 .section-title {
   margin: 0 0 var(--space-2);

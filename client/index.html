@@ -77,6 +77,10 @@
         <div id="settings-providers"></div>
       </div>
     </section>
+    <section class="view" data-view="game">
+      <h2>Game</h2>
+      <div id="game-page"></div>
+    </section>
   </main>
 
   <script src="/shell/api.js"></script>
@@ -86,6 +90,7 @@
   <script src="/library/library.js"></script>
   <script src="/creator_hub/create.js"></script>
   <script src="/settings/settings.js"></script>
+  <script src="/game_page/game_page.js"></script>
   <script>
     // Views beim Laden rendern (nachdem die jeweiligen Skripte geladen sind).
     window.craftera.renderHome();
@@ -93,6 +98,7 @@
     window.craftera.renderLibrary();
     window.craftera.renderCreate();
     window.craftera.renderSettings();
+    window.craftera.renderGamePage();
   </script>
 </body>
 </html>

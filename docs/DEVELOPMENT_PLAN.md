@@ -286,7 +286,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-11.1 | Game Page-View (Name, Creator, Thumbnail, Beschreibung, Version, Tags, Play) | Game Page rendert | View sichtbar |
+| AP-11.1 | Game Page-View (Name, Creator, Thumbnail, Beschreibung, Version, Tags, Play) | Game Page rendert | View sichtbar | ✅ |
 | AP-11.2 | Play-Flow: Check Local Version → Check Required → Install/Update → Verify → Prepare → Start | Ablauf real | Play startet Game |
 | AP-11.3 | Runtime Host (`prepare(experienceId)`) | Host lädt Manifest + Projekt + Save | Host liefert Daten |
 | AP-11.4 | Platform API (`getCurrentUser`, `saveData`, `loadData`) | API funktioniert | Save/Load-Test |
