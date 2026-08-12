@@ -261,6 +261,23 @@
   }
 
   /**
+   * Drag & Drop / Move (AP-6.3).
+   * Verschiebt eine Entity auf neue Koordinaten (ändert den Transform).
+   * @param {object} entity - Entity-Objekt.
+   * @param {number} x - Neue X-Position.
+   * @param {number} y - Neue Y-Position.
+   * @returns {object} Der aktualisierte Transform.
+   */
+  function moveEntity(entity, x, y) {
+    if (!entity || !entity.transform) {
+      throw new Error('moveEntity: Entity benötigt ein transform-Objekt');
+    }
+    entity.transform.x = Number(x);
+    entity.transform.y = Number(y);
+    return entity.transform;
+  }
+
+  /**
    * Rendert das Assets-Panel (AP-3.6).
    * Zeigt die Assets des Projekts. Da das Asset-System erst in Phase 6
    * entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
@@ -492,6 +509,6 @@
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
-    selectEntity, hitTestEntity,
+    selectEntity, hitTestEntity, moveEntity,
   };
 })();
