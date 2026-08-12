@@ -117,7 +117,7 @@
 
 | AP | Arbeitspunkt | DoD | Verifikation |
 |----|--------------|-----|--------------|
-| AP-4.1 | GameProject-Modell (`createProject`) | Projekt mit `formatVersion`, `scenes`, `entities`, `components`, `assets` | Unit-Test |
+| AP-4.1 | GameProject-Modell (`createProject`) | Projekt mit `formatVersion`, `scenes`, `entities`, `components`, `assets` | Unit-Test | ✅ |
 | AP-4.2 | Scene-Modell (`createScene`) | Scene mit `sceneId`, `name`, `rootEntityId` | Unit-Test |
 | AP-4.3 | Entity-Modell (`createEntity`) | Entity mit `entityId`, `sceneId`, `parentId`, `transform`, `components` | Unit-Test |
 | AP-4.4 | Component-Modell (`addComponent`) | Component mit `componentId`, `type`, Props | Unit-Test |
