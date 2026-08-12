@@ -37,6 +37,35 @@
     }
   }
 
+  /**
+   * Rendert das Hierarchy-Panel (AP-3.3).
+   * Zeigt die Entities der aktuellen Scene. Da das GameProject/Scene-Modell
+   * erst in Phase 4 entsteht, ist die Datenquelle aktuell leer → leerer Zustand.
+   */
+  function renderHierarchy() {
+    const list = document.getElementById('hierarchy-list');
+    if (!list) return;
+
+    // Datenquelle: Entities der aktuellen Scene (noch leer, Phase 4).
+    const entities = [];
+
+    list.innerHTML = '';
+    if (!entities.length) {
+      const empty = document.createElement('p');
+      empty.className = 'empty-state';
+      empty.textContent = 'Keine Entities in der Scene.';
+      list.appendChild(empty);
+      return;
+    }
+
+    entities.forEach((entity) => {
+      const row = document.createElement('div');
+      row.className = 'hierarchy-item';
+      row.textContent = entity.name || entity.entityId;
+      list.appendChild(row);
+    });
+  }
+
   window.craftera = window.craftera || {};
-  window.craftera.studio = { loadExperience };
+  window.craftera.studio = { loadExperience, renderHierarchy };
 })();
