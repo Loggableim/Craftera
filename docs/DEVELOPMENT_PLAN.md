@@ -98,7 +98,7 @@
 | AP-3.2 | Studio-Route: Experience aus Creator Hub im Studio öffnen | `navigate('studio', {id})` | Klick "Edit" öffnet Studio | ✅ |
 | AP-3.3 | Hierarchy-Panel (Entities der aktuellen Scene) | Entities gelistet | Liste zeigt Entities | ✅ |
 | AP-3.4 | Inspector-Panel (Transform + Components) | Properties anzeigen | Werte sichtbar | ✅ |
-| AP-3.5 | Viewport-Panel (Canvas, leerer Zustand) | Canvas vorhanden | Canvas rendert |
+| AP-3.5 | Viewport-Panel (Canvas, leerer Zustand) | Canvas vorhanden | Canvas rendert | ✅ |
 | AP-3.6 | Assets-Panel (Asset-Liste) | Assets gelistet | Liste zeigt Assets |
 | AP-3.7 | Console-Panel (Log-Ausgabe) | Logs erscheinen | Test-Log sichtbar |
 | AP-3.8 | Play-Toolbar (Play/Stop/Pause) | Buttons vorhanden | Buttons klickbar |

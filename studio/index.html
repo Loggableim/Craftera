@@ -28,7 +28,7 @@
     <section class="panel panel-center" id="viewport-panel">
       <h2 class="panel-title">Viewport</h2>
       <div class="panel-body viewport-canvas" id="viewport-canvas">
-        <p class="empty-state">Canvas (AP-3.5).</p>
+        <canvas id="viewport-canvas-el" width="800" height="600"></canvas>
       </div>
     </section>
 
@@ -68,6 +68,7 @@
     window.craftera.studio.loadExperience();
     window.craftera.studio.renderHierarchy();
     window.craftera.studio.renderInspector(null);
+    window.craftera.studio.renderViewport();
   </script>
 </body>
 </html>

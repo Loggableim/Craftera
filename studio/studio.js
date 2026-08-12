@@ -129,6 +129,38 @@
     body.appendChild(compSection);
   }
 
+  /**
+   * Rendert das Viewport-Panel (AP-3.5).
+   * Initialisiert den Canvas und zeichnet den leeren Zustand (Hintergrund).
+   * Später (Phase 6) werden hier Entities als Sprites gezeichnet.
+   */
+  function renderViewport() {
+    const canvas = document.getElementById('viewport-canvas-el');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Leerer Zustand: dunkler Hintergrund + Raster.
+    ctx.fillStyle = '#0b0d11';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.strokeStyle = '#1a1d24';
+    ctx.lineWidth = 1;
+    for (let x = 0; x <= canvas.width; x += 40) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    for (let y = 0; y <= canvas.height; y += 40) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
+  }
+
   window.craftera = window.craftera || {};
-  window.craftera.studio = { loadExperience, renderHierarchy, renderInspector };
+  window.craftera.studio = { loadExperience, renderHierarchy, renderInspector, renderViewport };
 })();
