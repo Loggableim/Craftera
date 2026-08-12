@@ -183,10 +183,32 @@
     body.appendChild(compSection);
   }
 
+  // Kamera-Zustand (AP-6.7): Zoom + Pan.
+  const camera = { zoom: 1, panX: 0, panY: 0 };
+
   /**
-   * Rendert das Viewport-Panel (AP-3.5, AP-6.1).
+   * Setzt den Zoom-Faktor der Kamera (AP-6.7).
+   * @param {number} zoom - Neuer Zoom-Faktor (z.B. 0.5 … 3).
+   */
+  function setZoom(zoom) {
+    camera.zoom = Math.max(0.1, Number(zoom) || 1);
+  }
+
+  /**
+   * Verschiebt die Kamera (Pan) um dx/dy (AP-6.7).
+   * @param {number} dx - X-Verschiebung.
+   * @param {number} dy - Y-Verschiebung.
+   */
+  function panViewport(dx, dy) {
+    camera.panX += Number(dx) || 0;
+    camera.panY += Number(dy) || 0;
+  }
+
+  /**
+   * Rendert das Viewport-Panel (AP-3.5, AP-6.1, AP-6.7).
    * Zeichnet den Hintergrund + Raster und rendert Entities als Sprites
-   * (farbige Rechtecke an ihrer Transform-Position).
+   * (farbige Rechtecke an ihrer Transform-Position), unter Anwendung der
+   * Kamera (Zoom + Pan).
    * @param {object[]} entities - Entities des Projekts (optional).
    */
   function renderViewport(entities = []) {
@@ -196,22 +218,28 @@
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Hintergrund + Raster.
+    // Hintergrund.
     ctx.fillStyle = '#0b0d11';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Kamera anwenden (Zoom + Pan).
+    ctx.save();
+    ctx.translate(camera.panX, camera.panY);
+    ctx.scale(camera.zoom, camera.zoom);
+
+    // Raster (im Weltraum).
     ctx.strokeStyle = '#1a1d24';
     ctx.lineWidth = 1;
-    for (let x = 0; x <= canvas.width; x += 40) {
+    for (let x = 0; x <= canvas.width / camera.zoom; x += 40) {
       ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, canvas.height);
+      ctx.moveTo(x, -camera.panY);
+      ctx.lineTo(x, canvas.height / camera.zoom);
       ctx.stroke();
     }
-    for (let y = 0; y <= canvas.height; y += 40) {
+    for (let y = 0; y <= canvas.height / camera.zoom; y += 40) {
       ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(canvas.width, y);
+      ctx.moveTo(-camera.panX, y);
+      ctx.lineTo(canvas.width / camera.zoom, y);
       ctx.stroke();
     }
 
@@ -229,6 +257,8 @@
       ctx.strokeRect(-size / 2, -size / 2, size, size);
       ctx.restore();
     });
+
+    ctx.restore();
   }
 
   /**
@@ -551,5 +581,6 @@
     loadProject, saveProject, initSaveButton,
     initUndoRedo, setHistory, updateUndoRedoButtons,
     selectEntity, hitTestEntity, moveEntity, scaleEntity, rotateEntity, snapToGrid,
+    setZoom, panViewport,
   };
 })();
