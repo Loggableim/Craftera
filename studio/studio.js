@@ -397,10 +397,55 @@
     });
   }
 
+  /**
+   * Undo/Redo-UI (AP-5.9).
+   * Verbindet die CommandHistory mit den Toolbar-Buttons. Die Buttons sind
+   * aktiv/inaktiv je nach canUndo/canRedo; Klick führt undo/redo aus.
+   */
+  let history = null;
+
+  /** Aktualisiert die Undo/Redo-Button-Zustände. */
+  function updateUndoRedoButtons() {
+    const undo = document.getElementById('undo-btn');
+    const redo = document.getElementById('redo-btn');
+    if (!undo || !redo) return;
+    undo.disabled = !history || !history.canUndo();
+    redo.disabled = !history || !history.canRedo();
+  }
+
+  /** Setzt die CommandHistory und aktualisiert die Buttons. */
+  function setHistory(newHistory) {
+    history = newHistory;
+    updateUndoRedoButtons();
+  }
+
+  /** Initialisiert die Undo/Redo-Buttons. */
+  function initUndoRedo() {
+    const undo = document.getElementById('undo-btn');
+    const redo = document.getElementById('redo-btn');
+    if (!undo || !redo) return;
+
+    undo.addEventListener('click', () => {
+      if (history && history.undo()) {
+        log('Undo ausgeführt.', 'info');
+        updateUndoRedoButtons();
+      }
+    });
+    redo.addEventListener('click', () => {
+      if (history && history.redo()) {
+        log('Redo ausgeführt.', 'info');
+        updateUndoRedoButtons();
+      }
+    });
+
+    updateUndoRedoButtons();
+  }
+
   window.craftera = window.craftera || {};
   window.craftera.studio = {
     loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets,
     log, renderConsole, initPlayToolbar, setPlayState, renderAI,
     loadProject, saveProject, initSaveButton,
+    initUndoRedo, setHistory, updateUndoRedoButtons,
   };
 })();
