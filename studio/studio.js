@@ -192,6 +192,43 @@
     });
   }
 
+  /**
+   * Console-Panel (AP-3.7).
+   * Sammelt Logs und rendert sie in das Console-Panel.
+   */
+  const consoleLogs = [];
+
+  /** Fügt einen Log-Eintrag hinzu und rendert das Console-Panel. */
+  function log(message, level = 'info') {
+    consoleLogs.push({ message: String(message), level, time: new Date().toISOString() });
+    renderConsole();
+  }
+
+  /** Rendert das Console-Panel. */
+  function renderConsole() {
+    const list = document.getElementById('console-list');
+    if (!list) return;
+
+    list.innerHTML = '';
+    if (!consoleLogs.length) {
+      const empty = document.createElement('p');
+      empty.className = 'empty-state';
+      empty.textContent = 'Keine Logs.';
+      list.appendChild(empty);
+      return;
+    }
+
+    consoleLogs.forEach((entry) => {
+      const row = document.createElement('div');
+      row.className = `console-item console-${entry.level}`;
+      row.textContent = `[${entry.time}] ${entry.message}`;
+      list.appendChild(row);
+    });
+  }
+
   window.craftera = window.craftera || {};
-  window.craftera.studio = { loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets };
+  window.craftera.studio = {
+    loadExperience, renderHierarchy, renderInspector, renderViewport, renderAssets,
+    log, renderConsole,
+  };
 })();

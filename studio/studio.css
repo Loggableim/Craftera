@@ -184,3 +184,23 @@ body {
 .asset-type {
   color: #6b7280;
 }
+
+/* Console */
+.console-item {
+  padding: 0.2rem 0;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #1a1d24;
+}
+
+.console-info {
+  color: #aeb4bf;
+}
+
+.console-warn {
+  color: #fbbf24;
+}
+
+.console-error {
+  color: #f87171;
+}
