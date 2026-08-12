@@ -20,6 +20,7 @@ const { ExperienceRepository } = require('../../platform/experiences/experienceR
 const { createExperience } = require('../../engine/experience.js');
 const { saveProject, loadProject } = require('../../engine/serialization.js');
 const { createProject } = require('../../engine/project.js');
+const { LocalExperienceRegistry } = require('../../platform/registry/localExperienceRegistry.js');
 
 const PORT = Number(process.env.PORT) || 3000;
 const HOST = process.env.HOST || '127.0.0.1';
@@ -37,6 +38,8 @@ const STATIC_ROOTS = [
 
 // Experience-Repository auf dem Datenverzeichnis.
 const experienceRepo = new ExperienceRepository(getDataDir());
+// Lokale Experience-Registry (AP-10.9).
+const registry = new LocalExperienceRegistry(getDataDir());
 
 // MIME-Types für die ausgelieferten Dateitypen.
 const MIME_TYPES = {
@@ -214,6 +217,31 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(405, { 'Content-Type': 'text/plain' });
     res.end('Method Not Allowed');
+    return;
+  }
+
+  // REST-API: publish/install/play (AP-10.9).
+  const actionMatch = req.url.match(/^\/api\/experiences\/([^/]+)\/(publish|install|play)$/);
+  if (actionMatch && req.method === 'POST') {
+    const experienceId = decodeURIComponent(actionMatch[1]);
+    const action = actionMatch[2];
+
+    const handler = {
+      publish: () => registry.publish(experienceId),
+      install: () => registry.install(experienceId),
+      play: () => {
+        // Runtime (Godot) ist nicht installiert (AP-10.8 übersprungen).
+        return Promise.reject(new Error('Runtime nicht verfügbar (Godot nicht installiert)'));
+      },
+    }[action];
+
+    handler().then((result) => {
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify(result));
+    }).catch((err) => {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: err.message }));
+    });
     return;
   }
 
