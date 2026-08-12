@@ -73,4 +73,23 @@ async function uploadPackage(baseUrl, packageDir) {
   return data;
 }
 
-module.exports = { packPackage, uploadPackage, writeArchiveRecursive, readDirRecursive };
+/**
+ * Lädt ein Package herunter (AP-15.5).
+ * @param {string} baseUrl - Basis-URL des Remote-Registry-Servers.
+ * @param {string} packageId - Package-ID.
+ * @returns {Promise<object>} { packageId, files }.
+ */
+async function downloadPackage(baseUrl, packageId) {
+  const res = await fetch(`${baseUrl.replace(/\/$/, '')}/api/packages/${encodeURIComponent(packageId)}`);
+  const text = await res.text();
+  let data = null;
+  if (text) {
+    try { data = JSON.parse(text); } catch { data = text; }
+  }
+  if (!res.ok) {
+    throw new Error(data && data.error ? data.error : `Download fehlgeschlagen (${res.status})`);
+  }
+  return data;
+}
+
+module.exports = { packPackage, uploadPackage, downloadPackage, writeArchiveRecursive, readDirRecursive };
