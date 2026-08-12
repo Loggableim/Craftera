@@ -125,7 +125,38 @@ class LocalExperienceRegistry {
 
   /** Kopiert Package in installierten Bereich. (AP-10.5) */
   async install(experienceId) {
-    throw new Error('LocalExperienceRegistry.install ist nicht implementiert (AP-10.5)');
+    const sourceDir = path.join(this.dataDir, 'packages', experienceId);
+    const destDir = path.join(this.dataDir, 'installed', experienceId);
+
+    // Prüfen, ob ein Package existiert.
+    let entries;
+    try {
+      entries = await fs.readdir(sourceDir);
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        throw new Error(`install: Kein Package für Experience "${experienceId}"`);
+      }
+      throw err;
+    }
+    if (entries.length === 0) {
+      throw new Error(`install: Kein Package für Experience "${experienceId}"`);
+    }
+
+    // Package-Inhalt (package_<projectId>/) in installierten Bereich kopieren.
+    const packageSub = path.join(sourceDir, entries[0]);
+    await fs.rm(destDir, { recursive: true, force: true });
+    await fs.mkdir(destDir, { recursive: true });
+    await copyDir(packageSub, destDir);
+
+    // Registry-Eintrag als installed markieren.
+    const registry = await this._load();
+    const entry = registry.experiences.find((e) => e.experienceId === experienceId);
+    if (entry) {
+      entry.installed = true;
+    }
+    await this._save(registry);
+
+    return { experienceId, installed: true };
   }
 
   /** Installiert neue Version. (AP-10.6) */
@@ -145,3 +176,18 @@ class LocalExperienceRegistry {
 }
 
 module.exports = { LocalExperienceRegistry };
+
+/** Kopiert ein Verzeichnis rekursiv. */
+async function copyDir(src, dest) {
+  const entries = await fs.readdir(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      await fs.mkdir(destPath, { recursive: true });
+      await copyDir(srcPath, destPath);
+    } else {
+      await fs.copyFile(srcPath, destPath);
+    }
+  }
+}
