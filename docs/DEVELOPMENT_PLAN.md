@@ -244,7 +244,7 @@
 | AP-9.1 | Package-Struktur definieren (`manifest.json`, `game/`, `assets/`, `runtime/`, `metadata/`, `integrity.json`) | Struktur festgelegt | Doku | ✅ |
 | AP-9.2 | Package Builder (`buildPackage`) | Package erzeugbar | Package existiert | ✅ |
 | AP-9.3 | Manifest-Generator | Manifest mit `formatVersion`, `experienceId`, `versionId`, `runtimeVersion`, `entryScene`, `permissions`, `contentHash` | Manifest korrekt | ✅ |
-| AP-9.4 | Content-Hashing (SHA-256) | Hash reproduzierbar | Gleicher Input → gleicher Hash |
+| AP-9.4 | Content-Hashing (SHA-256) | Hash reproduzierbar | Gleicher Input → gleicher Hash | ✅ |
 | AP-9.5 | Validation (Package vollständig, Assets vorhanden) | Validierung prüft | Test: fehlende Datei → Fehler |
 | AP-9.6 | Runtime-Compatibility-Check (`minimumRuntimeVersion`, `targetRuntimeVersion`) | Kompatibilität geprüft | Test: inkompatibel → Fehler |
 | AP-9.7 | Package-Format-Versionierung | `packageFormatVersion` getrennt | Doku |
